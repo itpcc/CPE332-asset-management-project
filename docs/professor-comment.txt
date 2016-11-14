@@ -1,0 +1,7 @@
+Analysis
+- Statistic report to show Ex. Max, mean, frequency
+- ประเภทสินค้าที่เสื่อมสภาพเร็วสุด
+- สรุปยอดซื้อขายรายวัน
+
+complex form
+- Edit Asset
