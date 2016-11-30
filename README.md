@@ -1,5 +1,8 @@
 # CPE332-asset-management-project
 
+## Project site
+[https://dbproject.itpcc.net/](https://dbproject.itpcc.net/)
+
 ## ข้อตกลง/ข้อแนะนำ
 
 - URL path พยายามยึด [REST API best practice](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api) ไว้ จะได้เหมือนๆ กัน (แต่ไม้ต้องเป๊ะก็ได้ เอาที่สะดวก)
