@@ -23,7 +23,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+switch ($_SERVER['SERVER_NAME']) {
+	case 'dbproject.itpcc.net':	$config['base_url'] = 'https://dbproject.itpcc.net/';	break;
+	default:	$config['base_url'] = 'http://localhost/db-project/'; break;
+}
 
 /*
 |--------------------------------------------------------------------------
