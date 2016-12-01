@@ -141,11 +141,11 @@
 						<div class="row">
 							<div class="input-field col s6">
 								<i class="material-icons prefix">account_circle</i>
-								<input id="app-modal-vendor-first_name" type="text" class="validate">
+								<input id="app-modal-vendor-first_name" type="text" class="validate" required="required">
 								<label for="app-modal-vendor-first_name">First Name</label>
 							</div>
 							<div class="input-field col s6">
-								<input id="app-modal-vendor-last_name" type="text" class="validate">
+								<input id="app-modal-vendor-last_name" type="text" class="validate" required="required">
 								<label for="app-modal-vendor-last_name">Last Name</label>
 							</div>
 						</div>
@@ -154,25 +154,25 @@
 								<i class="material-icons">domain</i> <label for="app-modal-vendor-company-id">Company</label>
 							</div>
 							<div class="col m9">
-								<select id="app-modal-vendor-company-id" name="CompanyID"></select>
+								<select id="app-modal-vendor-company-id" name="CompanyID" required="required"></select>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s6">
 								<i class="material-icons prefix">phone</i>
-								<input id="app-modal-vendor-tel" name="VendorPhoneNO" type="tel" class="validate">
+								<input id="app-modal-vendor-tel" name="VendorPhoneNO" type="tel" class="validate" required="required">
 								<label for="app-modal-vendor-tel">Phone</label>
 							</div>
 							<div class="input-field col s6">
 								<i class="material-icons prefix">email</i>
-								<input id="app-modal-vendor-email" name="VendorEmail" type="email" class="validate">
+								<input id="app-modal-vendor-email" name="VendorEmail" type="email" class="validate" required="required">
 								<label for="app-modal-vendor-email">Email</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
 								<i class="material-icons prefix">store</i>
-								<textarea id="app-modal-vendor-buy-location" name="BuyLocation" length="50" class="validate materialize-textarea"></textarea>
+								<textarea id="app-modal-vendor-buy-location" name="BuyLocation" length="50" class="validate materialize-textarea" required="required"></textarea>
 								<label for="app-modal-vendor-buy-location">Buy Location</label>
 							</div>
 						</div>
@@ -180,7 +180,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" class="app-modal-vendor-submit">Submit</a>
+				<a href="#!" class="waves-effect waves-green btn-flat app-modal-submit">Submit</a>
 			</div>
 		</div>
 
@@ -241,7 +241,7 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 
 
 			function _bindAjaxLinkElement(){
-				$("a:not([data-bind-ajax])").each(function(){
+				$("a:not([data-bind-ajax], a[href^='#'])").each(function(){
 					if(
 						this.hostname === BASE_URL_ELEMENT.hostname && 	//check is in the same domain
 						this.pathname.indexOf(BASE_URL_ELEMENT.pathname) === 0 //and in the same directory (localhost are placed in subdir)
@@ -302,12 +302,13 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 			}
 
 			function openForm(formID, data){
-				if(data){
+				$('#app-modal-'+formID+' :input').removeClass("valid invalid");
+				if(!jQuery.isEmptyObject(data)){
 					$.each(data, function(key, val){
 						$("#app-modal-"+formID+"-"+key).val(val);
 					});
 				}else{
-					$('#app-modal-'+formID+' input, #app-modal-'+formID+' textarea').val('');
+					$('#app-modal-'+formID+' :input').val('');
 				}
 				if(formID === 'vendor'){
 					$('#app-modal-vendor-buy-location').trigger('autoresize').characterCounter();
@@ -331,10 +332,32 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 						},
 						minimumInputLength: 2,
 						width: '100%'
-					}).val((data && data.CompanyID)?data.CompanyID:"").trigger('change');
+					}).val((!jQuery.isEmptyObject(data) && data.CompanyID)?data.CompanyID:"").trigger('change');
 
 					$("#app-modal-vendor").modal('open');
 				}
+				$('#app-modal-'+formID+' .app-modal-submit').click(function(e){
+					var error = {};
+					e.preventDefault();
+					console.log('#app-modal-'+formID+' [required]');
+					$('#app-modal-'+formID+' :input').each(function(){
+						$(this).removeClass("invalid");
+
+						if(!this.validity.valid){
+							error[$(this).attr("id") || $(this).attr("name")] = ($("label[for='"+$(this).attr("id")+"']").text() || $(this).attr("name")).toString()+' : '+this.validationMessage;
+						}
+					});
+
+					if(!jQuery.isEmptyObject(error)){
+						Materialize.toast(Object.values(error).join('<br>'), 4000); // 4000 is the duration of the toast
+						$.each(error, function(key, name){
+							$('#'+key+', #app-modal-'+formID+' input[name="'+key+'"]').addClass("invalid");
+						});
+					}else{
+						//@TODO: add submit procedure
+					}
+				});
+
 			}
 
 			function generateTable(tableID){
