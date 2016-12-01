@@ -331,7 +331,8 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 						},
 						minimumInputLength: 2,
 						width: '100%'
-					});
+					}).val((data && data.CompanyID)?data.CompanyID:"").trigger('change');
+
 					$("#app-modal-vendor").modal('open');
 				}
 			}
