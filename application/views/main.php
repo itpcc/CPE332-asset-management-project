@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<?php 
+	$this->config->load('main_form'); 
+	$sectionDetails = $this->config->item('section_detail'); 
+?><!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -93,18 +96,18 @@
 		</div>
 	</section>
 
-
-	<section id="vendor-section">
-		<nav class="pushpin-nav" data-target="vendor-section">
-			<div class="nav-wrapper red">
+	<?php foreach($sectionDetails AS $sectionID => $sectionDetail) : ?>
+	<section id="<?php echo $sectionID; ?>-section" class="module-data <?php if(isset($sectionDetail['color'])): ?> <?php echo $sectionDetail['color']; ?> darken-1<?php endif; ?>">
+		<nav class="pushpin-nav" data-target="<?php echo $sectionID; ?>-section">
+			<div class="nav-wrapper<?php if(isset($sectionDetail['color'])): ?> <?php echo $sectionDetail['color']; ?>  darken-3"<?php endif; ?>">
 				<div class="container">
-					<a href="#vendor-section" class="brand-logo"><i class="material-icons">person</i> Vendor</a>
-					<a href="#" data-activates="vendor-menu-mobile" class="button-collapse white-text"><i class="material-icons">menu</i></a>
-					<ul class="right hide-on-med-and-down" id="vendor-menu">
-						<li><a href="vendor/add/"><i class="material-icons">person_add</i></a></li>
+					<a href="<?php echo $sectionID; ?>/" class="brand-logo"><i class="material-icons">person</i> <?php echo $sectionDetail['name']; ?></a>
+					<a href="#" data-activates="<?php echo $sectionID; ?>-menu-mobile" class="button-collapse white-text"><i class="material-icons">menu</i></a>
+					<ul class="right hide-on-med-and-down" id="<?php echo $sectionID; ?>-menu">
+						<li><a href="<?php echo $sectionID; ?>/add/"><i class="material-icons">person_add</i></a></li>
 					</ul>
-					<ul class="side-nav" id="vendor-menu-mobile">
-						<li><a href="vendor/add/"><i class="material-icons">person_add</i></a></li>
+					<ul class="side-nav" id="<?php echo $sectionID; ?>-menu-mobile">
+						<li><a href="<?php echo $sectionID; ?>/add/"><i class="material-icons">person_add</i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -112,16 +115,12 @@
 		<div class="container">
 			<!--   Icon Section   -->
 			<div class="row">
-				<table class="vendor-table hoverable" id="vendor-section-list">
+				<table class="<?php echo $sectionID; ?>-table hoverable" id="<?php echo $sectionID; ?>-section-list">
 					<thead>
 						<tr>
-							<th>#</th>
-							<th>First name</th>
-							<th>Last name</th>
-							<th>Company</th>
-							<th>Phone</th>
-							<th>Email</th>
-							<th>Buy location</th>
+							<?php foreach($sectionDetail['table'] AS $tableField): ?>
+								<th><?php echo $sectionDetail['fields'][$tableField]['name']; ?></th>
+							<?php endforeach; ?>
 							<th>Option</th>
 						</tr>
 					</thead>
@@ -131,51 +130,86 @@
 
 		</div>
 		<!-- Modal Structure -->
-		<div id="app-modal-vendor" class="modal">
+		<div id="app-modal-<?php echo $sectionID; ?>" class="modal">
 			<div class="modal-content">
-				<h4>จัดการ Vendor</h4>
+				<h4><?php echo $sectionDetail['modal']['header']; ?></h4>
 				<p class="modal-dynamic-header"></p>
 				<div class="row">
-					<form class="col s12">
-						<input type="hidden" name="VendorID">
+					<form class="col s12 app-modal-form">
+						<?php 
+							foreach($sectionDetail['form_lines'] AS $formLine) : 
+								$columnWidth = ceil(12/count($formLine));
+						?>
 						<div class="row">
-							<div class="input-field col s6">
-								<i class="material-icons prefix">account_circle</i>
-								<input id="app-modal-vendor-first_name" type="text" class="validate" required="required">
-								<label for="app-modal-vendor-first_name">First Name</label>
-							</div>
-							<div class="input-field col s6">
-								<input id="app-modal-vendor-last_name" type="text" class="validate" required="required">
-								<label for="app-modal-vendor-last_name">Last Name</label>
-							</div>
+							<?php 
+								foreach($formLine AS $formField): 
+									if($sectionDetail['fields'][$formField]['input']['type'] !== 'select2') :
+							?>
+								<div class="col input-field m<?php echo $columnWidth; ?>">
+									<?php if(isset($sectionDetail['fields'][$formField]['icon'])) : ?>
+										<i class="material-icons prefix"><?php echo $sectionDetail['fields'][$formField]['icon']; ?></i>
+									<?php endif; ?>
+									<?php switch($sectionDetail['fields'][$formField]['input']['type']) : 
+										case 'textarea' : ?>
+											<textarea 
+												id="app-modal-<?php echo $sectionID; ?>-<?php echo $sectionDetail['fields'][$formField]['slug']; ?>" 
+												name="<?php echo $formField; ?>" 
+												class="validate materialize-textarea" 
+											<?php if(isset($sectionDetail['fields'][$formField]['input']['required']) && $sectionDetail['fields'][$formField]['input']['required']) : ?>
+												required="required"
+											<?php endif;?>
+											<?php if(isset($sectionDetail['fields'][$formField]['input']['length'])) : ?>
+												length="<?php echo $sectionDetail['fields'][$formField]['input']['length']; ?>"
+											<?php endif;?>
+											></textarea>
+										<?php break;
+										      default: ?>
+											<input 
+												type="<?php echo $sectionDetail['fields'][$formField]['input']['type']; ?>" 
+												id="app-modal-<?php echo $sectionID; ?>-<?php echo $sectionDetail['fields'][$formField]['slug']; ?>" 
+												name="<?php echo $formField; ?>" 
+												class="validate"
+											<?php if(isset($sectionDetail['fields'][$formField]['input']['required']) && $sectionDetail['fields'][$formField]['input']['required']) : ?>
+												required="required"
+											<?php endif;?>
+											<?php if(isset($sectionDetail['fields'][$formField]['input']['length'])) : ?>
+												length="<?php echo $sectionDetail['fields'][$formField]['input']['length']; ?>"
+											<?php endif;?>
+											>
+										<?php break;
+									endswitch; ?>
+									<?php if($sectionDetail['fields'][$formField]['input']['type'] !== 'hidden'): ?>
+										<label 
+											for="app-modal-<?php echo $sectionID; ?>-<?php echo $sectionDetail['fields'][$formField]['slug']; ?>"
+										><?php echo $sectionDetail['fields'][$formField]['name']; ?></label>
+									<?php endif; ?>
+								</div>
+							<?php else: ?>
+								<div class="col m3">
+									<?php if(isset($sectionDetail['fields'][$formField]['icon'])) : ?>
+										<i class="material-icons"><?php echo $sectionDetail['fields'][$formField]['icon']; ?></i>
+									<?php endif; ?> 
+									<label 
+										for="app-modal-<?php echo $sectionID; ?>-<?php echo $sectionDetail['fields'][$formField]['slug']; ?>"
+									><?php echo $sectionDetail['fields'][$formField]['name']; ?></label>
+								</div>
+								<div class="col m9">
+									<select 
+										id="app-modal-<?php echo $sectionID; ?>-<?php echo $sectionDetail['fields'][$formField]['slug']; ?>" 
+										name="<?php echo $formField; ?>" 
+										class="validate"
+									<?php if(
+										isset($sectionDetail['fields'][$formField]['input']['required']) && 
+										$sectionDetail['fields'][$formField]['input']['required']
+									) : ?>
+										required="required"
+									<?php endif;?>
+										></select>
+								</div>
+								<?php endif; ?>
+							<?php endforeach; ?>
 						</div>
-						<div class="row">
-							<div class="col m3">
-								<i class="material-icons">domain</i> <label for="app-modal-vendor-company-id">Company</label>
-							</div>
-							<div class="col m9">
-								<select id="app-modal-vendor-company-id" name="CompanyID" required="required"></select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="input-field col s6">
-								<i class="material-icons prefix">phone</i>
-								<input id="app-modal-vendor-tel" name="VendorPhoneNO" type="tel" class="validate" required="required">
-								<label for="app-modal-vendor-tel">Phone</label>
-							</div>
-							<div class="input-field col s6">
-								<i class="material-icons prefix">email</i>
-								<input id="app-modal-vendor-email" name="VendorEmail" type="email" class="validate" required="required">
-								<label for="app-modal-vendor-email">Email</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="input-field col s12">
-								<i class="material-icons prefix">store</i>
-								<textarea id="app-modal-vendor-buy-location" name="BuyLocation" length="50" class="validate materialize-textarea" required="required"></textarea>
-								<label for="app-modal-vendor-buy-location">Buy Location</label>
-							</div>
-						</div>
+						<?php endforeach; ?>
 					</form>
 				</div>
 			</div>
@@ -185,6 +219,7 @@
 		</div>
 
 	</section>
+	<?php endforeach; ?>
 
 	<footer class="page-footer teal">
 		<div class="container">
@@ -234,6 +269,7 @@
 			var BASE_URL = '<?php echo base_url(); ?>';
 			var BASE_URL_ELEMENT = document.createElement("a");
 			BASE_URL_ELEMENT.href = BASE_URL;
+			var SECTION_FORM_CONFIG = <?php echo json_encode($sectionDetails); ?>;
 
 			/* jQuery Deparam : https://raw.githubusercontent.com/chrissrogers/jquery-deparam/master/jquery-deparam.min.js */
 			(function(h){h.deparam=function(i,j){var d={},k={"true":!0,"false":!1,"null":null};h.each(i.replace(/\+/g," ").split("&"),function(i,l){var m;var a=l.split("="),c=decodeURIComponent(a[0]),g=d,f=0,b=c.split("]["),e=b.length-1;/\[/.test(b[0])&&/\]$/.test(b[e])?(b[e]=b[e].replace(/\]$/,""),b=b.shift().split("[").concat(b),e=b.length-1):e=0;if(2===a.length)if(a=decodeURIComponent(a[1]),j&&(a=a&&!isNaN(a)?+a:"undefined"===a?void 0:void 0!==k[a]?k[a]:a),e)for(;f<=e;f++)c=""===b[f]?g.length:b[f],m=g[c]=
@@ -290,27 +326,83 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 				if(urlQueryObj.api){
 					urlPath = $.grep(urlQueryObj.api.split('/'), function(elem){ return elem.length > 0; });
 					console.log(urlPath);
-					if(urlPath[0] === 'vendor'){
+					if(!jQuery.isEmptyObject(SECTION_FORM_CONFIG[urlPath[0]])){
+						scrollTo('#'+urlPath[0]+'-section');
+						if(urlPath[1] === 'add'){
+							openForm(urlPath[0]);
+						}else{
+
+						}
+					}else{
+						jQuery.noop();
+					}
+					/*if(urlPath[0] === 'vendor'){
 						scrollTo('#vendor-section');
 						if(urlPath[1] === 'add'){
 							openForm('vendor');
 						}else{
 
 						}
-					}
+					}*/
 				}
 			}
 
-			function openForm(formID, data){
+			function openForm(formID, formData){
+				if(jQuery.isEmptyObject(SECTION_FORM_CONFIG[formID]))
+					return;
+
 				$('#app-modal-'+formID+' :input').removeClass("valid invalid");
-				if(!jQuery.isEmptyObject(data)){
-					$.each(data, function(key, val){
+				if(!jQuery.isEmptyObject(formData)){
+					$.each(formData, function(key, val){
 						$("#app-modal-"+formID+"-"+key).val(val);
 					});
 				}else{
 					$('#app-modal-'+formID+' :input').val('');
 				}
-				if(formID === 'vendor'){
+
+				jQuery.each(SECTION_FORM_CONFIG[formID].fields, function(fieldName, fieldProperties){
+					if(fieldProperties.input.type === "select2"){
+						$('#app-modal-'+formID+'-'+fieldProperties.slug).select2({
+							ajax: {
+								url: fieldProperties.input.ajax,
+								dataType: 'json',
+								processResults: function (ajaxData) {
+									//console.log(data);
+									return {
+										results: $.map(ajaxData.data, function (item) {
+											console.log(item);
+											return {
+												text: item[fieldProperties.input.ajax_text],
+												slug: item[fieldProperties.input.ajax_id],
+												id: item[fieldProperties.input.ajax_id]
+											};
+										})
+									};
+								}
+							},
+							minimumInputLength: 2,
+							width: '100%'
+						});
+						if(!jQuery.isEmptyObject(formData) && formData[fieldName]){
+							$.ajax({
+								cache: true,
+								dataType: "json",
+								url: fieldProperties.input.ajax_query_id+formData[fieldName],
+								success: function(ajaxData){
+									$('#app-modal-'+formID+'-'+fieldProperties.slug).append('<option value="'+ajaxData.data[0][fieldProperties.input.ajax_id]+'">'+ajaxData.data[0][fieldProperties.input.ajax_text]+'</option>').val(ajaxData.data[0][fieldProperties.input.ajax_id]).trigger('change');
+								}
+							});
+						}else{
+							$('#app-modal-'+formID+'-'+fieldProperties.slug).val('').trigger('change');
+						}
+					}else if(typeof fieldProperties.input.length === "number"){
+						$('#app-modal-'+formID+'-'+fieldProperties.slug).trigger('autoresize').characterCounter();
+					}
+				});
+
+				$("#app-modal-"+formID).modal('open');
+
+				/*if(formID === 'vendor'){
 					$('#app-modal-vendor-buy-location').trigger('autoresize').characterCounter();
 					$('#app-modal-vendor-company-id').select2({
 						ajax: {
@@ -335,7 +427,8 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 					}).val((!jQuery.isEmptyObject(data) && data.CompanyID)?data.CompanyID:"").trigger('change');
 
 					$("#app-modal-vendor").modal('open');
-				}
+				}*/
+
 				$('#app-modal-'+formID+' .app-modal-submit').click(function(e){
 					var error = {};
 					e.preventDefault();
@@ -354,6 +447,30 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 							$('#'+key+', #app-modal-'+formID+' input[name="'+key+'"]').addClass("invalid");
 						});
 					}else{
+						console.log("Submit Data: ", $('#app-modal-'+formID+' .app-modal-form').serialize());
+						$.ajax({
+							dataType: 'json',
+							method: 'POST',
+							data: $('#app-modal-'+formID+' .app-modal-form').serialize(),
+							error: function(jqXHR, textStatus, errorThrown){
+								Materialize.toast('<span class="text-red">Error while submit data ('+textStatus+'):'+errorThrown+'</span>', 4000); // 4000 is the duration of the toast
+							},
+							success: function(data){
+								if(data.error){
+									Materialize.toast('<span class="red-text">Error: '+((typeof data.error === "string")?data.error:JSON.stringify(data.error))+'</span>', 4000); // 4000 is the duration of the toast
+								}else{
+									Materialize.toast('<span class="green-text">Success!</span>', 2000); // 4000 is the duration of the toast
+									$("#app-modal-"+formID).modal('close');
+									generateTable(formID);
+								}
+							},
+							url:( 
+								jQuery.isEmptyObject($('#app-modal-'+formID+'-'+SECTION_FORM_CONFIG[formID].fields[SECTION_FORM_CONFIG[formID].id_key].slug).val())?
+								SECTION_FORM_CONFIG[formID].url.add:
+								SECTION_FORM_CONFIG[formID].url.edit
+							),
+
+						});
 						//@TODO: add submit procedure
 					}
 				});
@@ -361,7 +478,39 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 			}
 
 			function generateTable(tableID){
-				if(tableID === 'vendor'){
+				if(jQuery.isEmptyObject(SECTION_FORM_CONFIG[tableID]))
+					return;
+				var columnList = [];
+				jQuery.each(SECTION_FORM_CONFIG[tableID].table, function(i, fieldName){
+					columnList.push({ data: fieldName });
+				});
+				columnList.push({ data: null });
+
+				console.log("columnList: ", columnList);
+
+				if(!$('#'+tableID+'-section-list').attr('data-DataTable')){
+					window.dataTableObj[tableID] = $('#'+tableID+'-section-list').DataTable( {
+							responsive: true,
+							dom: '<<"row"<"col m8"l><"#'+tableID+'-section-list-searchbox.input-field col m4 right">><t>ip>',
+							ajax: SECTION_FORM_CONFIG[tableID].url.list,
+							columns: columnList,
+							"columnDefs": [ {
+								"targets": -1,
+								"data": null,
+								"defaultContent": '<a href="#!" class="app-'+tableID+'-edit">Edit!</a>'
+							} ]
+					} );
+					$('#'+tableID+'-section-list').attr('data-DataTable', 'true');
+					$('#'+tableID+'-section-list-searchbox').html('<input value="" id="'+tableID+'-section-filter-field" class="white-text" type="text"><label for="'+tableID+'-section-filter-field" class="white-text">Search:</label>');
+					$('#'+tableID+'-section-filter-field').keyup(function(){
+						$('#'+tableID+'-section-list').dataTable().search($(this).val()).draw() ;
+					});
+				}else{
+					window.dataTableObj[tableID].ajax.reload();
+				}
+				Materialize.updateTextFields();
+
+				/*if(tableID === 'vendor'){
 					//$.fn.dataTableExt.oStdClasses.sPageButton = $.fn.dataTableExt.oStdClasses.sPageButton + " waves-effect waves-light btn";
 					$('#vendor-section-list').DataTable( {
 						responsive: true,
@@ -388,10 +537,11 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 						$('#vendor-section-list').DataTable().search($(this).val()).draw() ;
 					});
 					Materialize.updateTextFields();
-				}
+				}*/
 			}
 
 			$(document).ready(function(){
+				window.dataTableObj = {};
 				_bindAjaxLinkElement();
 				$('.modal').modal();
 				gotoPage(document.location);
@@ -406,24 +556,12 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 				generateTable('vendor');
 			});
 			(function(window,undefined){
-
 				// Bind to StateChange Event
 				History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
 					var State = History.getState(); // Note: We are using History.getState() instead of event.state
 					gotoPage(State.cleanUrl);
 					return true;
 				});
-
-				// Change our States
-				/*History.pushState({state:1}, "State 1", "?state=1"); // logs {state:1}, "State 1", "?state=1"
-				History.pushState({state:2}, "State 2", "?state=2"); // logs {state:2}, "State 2", "?state=2"
-				History.replaceState({state:3}, "State 3", "?state=3"); // logs {state:3}, "State 3", "?state=3"
-				History.pushState(null, null, "?state=4"); // logs {}, '', "?state=4"
-				History.back(); // logs {state:3}, "State 3", "?state=3"
-				History.back(); // logs {state:1}, "State 1", "?state=1"
-				History.back(); // logs {}, "Home Page", "?"
-				History.go(2); // logs {state:3}, "State 3", "?state=3"*/
-
 			})(window);
 
 
