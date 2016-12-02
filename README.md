@@ -8,9 +8,13 @@
 - Database พยายามใช้ [Query builder](https://www.codeigniter.com/user_guide/database/query_builder.html) นะ เผื่อใครจะใช้เงื่อนไขซับซ้อน (JOIN เพิ่มไรงี้) จะได้ง่าย และป้องกัน SQL injection ด้วย
 - ตอน commit ให้ commit ขึ้น branch ของตัวเองก่อน ถ้า code นิ่งแล้วค่อย merge เข้า master น้า
 
-## Helpful resource
+## Asset_model
 
-- [Learn Git in 30 Minutes](http://tutorialzine.com/2016/06/learn-git-in-30-minutes/) 
-- [GitHub For Beginners: Commit, Push And Go](http://readwrite.com/2013/10/02/github-for-beginners-part-2/)
-- [CodeIgniter User Guide](https://www.codeigniter.com/user_guide/)
-- [Markdown Cheat Sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+- get_all_asset(); 					//to get all list and all data of asset 
+- get_asset_by_id($asset_id); 		//get 1 row of asset that match with AssetID 
+- insert_asset($data);  			//insert array of $data (defined by controller) to database 
+- delete_asset_by_id($asset_id);	//delete 1 row of asset with matched AssetID
+- edit_asset_by_id($asset_id,$data)	//update array of $data (a row) to database which matched $asset_id
+
+
+
