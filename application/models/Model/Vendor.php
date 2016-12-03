@@ -9,7 +9,7 @@ class Vendor_model extends CI_Model {
                 parent::__construct();
                 //$this->load->database();
         }
-		public function get($condition = NULL)
+		public function get_vendor($condition = NULL)
 		{
 			if(!empty($condition['VendorID']))
 			{
@@ -20,7 +20,7 @@ class Vendor_model extends CI_Model {
 			}	
 			return $this->db->get('Vendor');
 		}
-        public function insert_asset($data)             //array of data (1 row)
+        public function insert_vendor($data)             //array of data (1 row)
         {
 			$this->db->insert('Vendor',$data);
         }
