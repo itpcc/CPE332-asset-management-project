@@ -14,9 +14,9 @@ class Asset_model extends CI_Model {
 			if(!empty($condition['VendorID']))
 			{
 				if(is_array($condition['VendorID']))
-					$this->db->where_in($condition['VendorID']);
+					$this->db->where_in('VendorID', $condition['VendorID']);
 				else
-					$this->db->where($condition['VendorID']);
+					$this->db->where('VendorID',$condition['VendorID']);
 			}	
 			return $this->db->get('Vendor');
 		}
