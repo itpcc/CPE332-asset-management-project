@@ -64,11 +64,11 @@
 		<div class="nav-wrapper container">
 			<a id="logo-container" href="#" class="brand-logo">Asset Management</a>
 			<ul class="right hide-on-med-and-down">
-				<li><a href="vendor/">Vendor</a></li>
+				<?php foreach($sectionDetails AS $sectionID => $sectionDetail): ?><li><a href="<?php echo $sectionID; ?>/"><?php echo $sectionDetail['name']; ?></a></li><?php endforeach; ?>
 			</ul>
 
 			<ul id="nav-mobile" class="side-nav">
-				<li><a href="vendor/">Vendor</a></li>
+				<?php foreach($sectionDetails AS $sectionID => $sectionDetail): ?><li><a href="<?php echo $sectionID; ?>/"><?php echo $sectionDetail['name']; ?></a></li><?php endforeach; ?>
 			</ul>
 			<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 		</div>
@@ -101,13 +101,13 @@
 		<nav class="pushpin-nav" data-target="<?php echo $sectionID; ?>-section">
 			<div class="nav-wrapper<?php if(isset($sectionDetail['color'])): ?> <?php echo $sectionDetail['color']; ?>  darken-3"<?php endif; ?>">
 				<div class="container">
-					<a href="<?php echo $sectionID; ?>/" class="brand-logo"><i class="material-icons">person</i> <?php echo $sectionDetail['name']; ?></a>
+					<a href="<?php echo $sectionID; ?>/" class="brand-logo"><i class="material-icons"><?php echo $sectionDetail['icon']; ?></i> <?php echo $sectionDetail['name']; ?></a>
 					<a href="#" data-activates="<?php echo $sectionID; ?>-menu-mobile" class="button-collapse white-text"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down" id="<?php echo $sectionID; ?>-menu">
-						<li><a href="<?php echo $sectionID; ?>/add/"><i class="material-icons">person_add</i></a></li>
+						<li><a href="<?php echo $sectionID; ?>/add/"><i class="material-icons"><?php echo $sectionDetail['add']['icon']; ?></i></a></li>
 					</ul>
 					<ul class="side-nav" id="<?php echo $sectionID; ?>-menu-mobile">
-						<li><a href="<?php echo $sectionID; ?>/add/"><i class="material-icons">person_add</i></a></li>
+						<li><a href="<?php echo $sectionID; ?>/add/"><i class="material-icons"><?php echo $sectionDetail['add']['icon']; ?></i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -119,7 +119,7 @@
 					<thead>
 						<tr>
 							<?php foreach($sectionDetail['table'] AS $tableField): ?>
-								<th><?php echo $sectionDetail['fields'][$tableField]['name']; ?></th>
+								<th><?php echo $sectionDetail['fields'][is_array($tableField)?($tableField['localField']):$tableField]['name']; ?></th>
 							<?php endforeach; ?>
 							<th>Option</th>
 						</tr>
@@ -141,10 +141,8 @@
 								$columnWidth = ceil(12/count($formLine));
 						?>
 						<div class="row">
-							<?php 
-								foreach($formLine AS $formField): 
-									if($sectionDetail['fields'][$formField]['input']['type'] !== 'select2') :
-							?>
+							<?php foreach($formLine AS $formField): ?>
+							<?php if($sectionDetail['fields'][$formField]['input']['type'] !== 'select2') :?>
 								<div class="col input-field m<?php echo $columnWidth; ?>">
 									<?php if(isset($sectionDetail['fields'][$formField]['icon'])) : ?>
 										<i class="material-icons prefix"><?php echo $sectionDetail['fields'][$formField]['icon']; ?></i>
@@ -178,7 +176,7 @@
 											>
 										<?php break;
 									endswitch; ?>
-									<?php if($sectionDetail['fields'][$formField]['input']['type'] !== 'hidden'): ?>
+									<?php if($sectionDetail['fields'][$formField]['input']['type'] !== 'hidden' && !(isset($sectionDetail['fields'][$formField]['input']['show_name']) && $sectionDetail['fields'][$formField]['input']['show_name'] === false)): ?>
 										<label 
 											for="app-modal-<?php echo $sectionID; ?>-<?php echo $sectionDetail['fields'][$formField]['slug']; ?>"
 										><?php echo $sectionDetail['fields'][$formField]['name']; ?></label>
@@ -189,9 +187,11 @@
 									<?php if(isset($sectionDetail['fields'][$formField]['icon'])) : ?>
 										<i class="material-icons"><?php echo $sectionDetail['fields'][$formField]['icon']; ?></i>
 									<?php endif; ?> 
+									<?php if(!(isset($sectionDetail['fields'][$formField]['input']['show_name']) && $sectionDetail['fields'][$formField]['input']['show_name'] === false)): ?>
 									<label 
 										for="app-modal-<?php echo $sectionID; ?>-<?php echo $sectionDetail['fields'][$formField]['slug']; ?>"
 									><?php echo $sectionDetail['fields'][$formField]['name']; ?></label>
+									<?php endif; ?>
 								</div>
 								<div class="col m9">
 									<select 
@@ -206,7 +206,7 @@
 									<?php endif;?>
 										></select>
 								</div>
-								<?php endif; ?>
+							<?php endif; ?>
 							<?php endforeach; ?>
 						</div>
 						<?php endforeach; ?>
@@ -264,17 +264,13 @@
 	<script src="https://cdn.datatables.net/v/dt/dt-1.10.12/fh-3.1.2/r-2.1.0/datatables.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 	<script src="<?php echo base_url('assets/js/jquery.history.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/jquery.deparam.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/init.js'); ?>"></script>
 	<script type="text/javascript">
 			var BASE_URL = '<?php echo base_url(); ?>';
 			var BASE_URL_ELEMENT = document.createElement("a");
 			BASE_URL_ELEMENT.href = BASE_URL;
 			var SECTION_FORM_CONFIG = <?php echo json_encode($sectionDetails); ?>;
-
-			/* jQuery Deparam : https://raw.githubusercontent.com/chrissrogers/jquery-deparam/master/jquery-deparam.min.js */
-			(function(h){h.deparam=function(i,j){var d={},k={"true":!0,"false":!1,"null":null};h.each(i.replace(/\+/g," ").split("&"),function(i,l){var m;var a=l.split("="),c=decodeURIComponent(a[0]),g=d,f=0,b=c.split("]["),e=b.length-1;/\[/.test(b[0])&&/\]$/.test(b[e])?(b[e]=b[e].replace(/\]$/,""),b=b.shift().split("[").concat(b),e=b.length-1):e=0;if(2===a.length)if(a=decodeURIComponent(a[1]),j&&(a=a&&!isNaN(a)?+a:"undefined"===a?void 0:void 0!==k[a]?k[a]:a),e)for(;f<=e;f++)c=""===b[f]?g.length:b[f],m=g[c]=
-f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):d[c]=void 0!==d[c]?[d[c],a]:a;else c&&(d[c]=j?void 0:"")});return d}})(jQuery);
-
 
 			function _bindAjaxLinkElement(){
 				$("a:not([data-bind-ajax], a[href^='#'])").each(function(){
@@ -330,26 +326,70 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 						scrollTo('#'+urlPath[0]+'-section');
 						if(urlPath[1] === 'add'){
 							openForm(urlPath[0]);
-						}else{
-
+						}else if(urlPath[1] === 'edit' && typeof urlPath[2] !== "undefined"){
+							dataResult = getModuleData(urlPath[0], urlPath[2]);
+							if(dataResult === false){
+								Materialize.toast("Cannot get data from "+urlPath[0]+':'+urlPath[2], 2000);
+							}else if(dataResult === true){
+								//@TODO loading
+								$(window).one('data-'+urlPath[0]+'-'+urlPath[2]+'-sent', function(){
+									dataResult = getModuleData(urlPath[0], urlPath[2]);
+									openForm(urlPath[0], dataResult);
+								});
+							}else{
+								openForm(urlPath[0], dataResult);
+							}
 						}
 					}else{
 						jQuery.noop();
 					}
-					/*if(urlPath[0] === 'vendor'){
-						scrollTo('#vendor-section');
-						if(urlPath[1] === 'add'){
-							openForm('vendor');
-						}else{
-
-						}
-					}*/
 				}
+			}
+
+			function replaceModuleDataPlaceholder(sectionID, elemID){
+				$(".app-module-data-placeholder[data-module-name='"+sectionID+"'][data-module-id='"+elemID+"']").each(function(){
+					var fieldName = $(this).attr("data-field-name");
+					if(
+						!jQuery.isEmptyObject(window.moduleData[sectionID][elemID]) && 
+						typeof window.moduleData[sectionID][elemID][fieldName] !== "undefined"
+					){
+						$(this).html(window.moduleData[sectionID][elemID][fieldName]);
+						$(this).removeClass('app-module-data-placeholder');
+					}
+				});
+			}
+
+			function getModuleData(sectionID, elemID){
+				try{
+					if(!jQuery.isEmptyObject(window.moduleData[sectionID])){
+						if(!jQuery.isEmptyObject(window.moduleData[sectionID][elemID])){
+							replaceModuleDataPlaceholder(sectionID, elemID);
+							return window.moduleData[sectionID][elemID];
+						}
+					}else{
+						window.moduleData[sectionID] = {};
+					}
+
+					if(!jQuery.isEmptyObject(SECTION_FORM_CONFIG[sectionID]['url']['list'])){
+						$.getJSON(SECTION_FORM_CONFIG[sectionID]['url']['list'], { id: elemID }, function(ajaxData){
+							window.moduleData[sectionID][elemID] = ajaxData.data.pop();
+							replaceModuleDataPlaceholder(sectionID, elemID);
+							$(window).trigger('data-'+sectionID+'-'+elemID+'-sent', [elemID]);
+						});
+						return true;
+					}
+				}catch(e){
+					console.error('Error while getting module data: ', e);
+					return false;
+				}
+				return false;				
 			}
 
 			function openForm(formID, formData){
 				if(jQuery.isEmptyObject(SECTION_FORM_CONFIG[formID]))
 					return;
+
+				console.log("FormData: ", formData);
 
 				$('#app-modal-'+formID+' :input').removeClass("valid invalid");
 				if(!jQuery.isEmptyObject(formData)){
@@ -395,153 +435,150 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 						}else{
 							$('#app-modal-'+formID+'-'+fieldProperties.slug).val('').trigger('change');
 						}
-					}else if(typeof fieldProperties.input.length === "number"){
-						$('#app-modal-'+formID+'-'+fieldProperties.slug).trigger('autoresize').characterCounter();
+					}else{
+						if(typeof fieldProperties.input.length === "number"){
+							$('#app-modal-'+formID+'-'+fieldProperties.slug).trigger('autoresize').characterCounter();
+						}
+
+						if(!jQuery.isEmptyObject(formData) && !jQuery.isEmptyObject(formData[fieldName])){
+							$('#app-modal-'+formID+'-'+fieldProperties.slug).val(formData[fieldName]).trigger('change');
+						}
+
 					}
 				});
 
 				$("#app-modal-"+formID).modal('open');
 
-				/*if(formID === 'vendor'){
-					$('#app-modal-vendor-buy-location').trigger('autoresize').characterCounter();
-					$('#app-modal-vendor-company-id').select2({
-						ajax: {
-							url: '<?php echo base_url('index.php/vendors/dummy_company/'); ?>',
-							dataType: 'json',
-							processResults: function (data) {
-								console.log(data);
-								return {
-									results: $.map(data.data, function (item) {
-										console.log(item);
-										return {
-											text: item.CompanyName,
-											slug: item.CompanyID,
-											id: item.CompanyID
-										};
-									})
-								};
+				if(jQuery.isEmptyObject(window.alreadyBindEvent['form']))
+					window.alreadyBindEvent['form'] = {};
+
+				if(!window.alreadyBindEvent['form'][formID]){
+					console.log("Bind :", window.alreadyBindEvent['form']);
+					$('#app-modal-'+formID+' .app-modal-submit').click(function(e){
+						var error = {};
+						e.preventDefault();
+						console.log('#app-modal-'+formID+' [required]');
+						$('#app-modal-'+formID+' :input').each(function(){
+							$(this).removeClass("invalid");
+
+							if(!this.validity.valid){
+								error[$(this).attr("id") || $(this).attr("name")] = ($("label[for='"+$(this).attr("id")+"']").text() || $(this).attr("name")).toString()+' : '+this.validationMessage;
 							}
-						},
-						minimumInputLength: 2,
-						width: '100%'
-					}).val((!jQuery.isEmptyObject(data) && data.CompanyID)?data.CompanyID:"").trigger('change');
+						});
 
-					$("#app-modal-vendor").modal('open');
-				}*/
+						if(!jQuery.isEmptyObject(error)){
+							Materialize.toast(Object.values(error).join('<br>'), 4000); // 4000 is the duration of the toast
+							$.each(error, function(key, name){
+								$('#'+key+', #app-modal-'+formID+' input[name="'+key+'"]').addClass("invalid");
+							});
+						}else{
+							console.log("Submit Data: ", $('#app-modal-'+formID+' .app-modal-form').serialize());
+							$.ajax({
+								dataType: 'json',
+								method: 'POST',
+								data: $('#app-modal-'+formID+' .app-modal-form').serialize(),
+								error: function(jqXHR, textStatus, errorThrown){
+									Materialize.toast('<span class="text-red">Error while submit data ('+textStatus+'):'+errorThrown+'</span>', 4000); // 4000 is the duration of the toast
+								},
+								success: function(data){
+									if(data.error){
+										Materialize.toast('<span class="red-text">Error: '+((typeof data.error === "string")?data.error:JSON.stringify(data.error))+'</span>', 4000); // 4000 is the duration of the toast
+									}else{
+										Materialize.toast('<span class="green-text">Success!</span>', 2000); // 4000 is the duration of the toast
+										$("#app-modal-"+formID).modal('close');
+										generateTable(formID);
+									}
+								},
+								url:( 
+									jQuery.isEmptyObject($('#app-modal-'+formID+'-'+SECTION_FORM_CONFIG[formID].fields[SECTION_FORM_CONFIG[formID].id_key].slug).val())?
+									SECTION_FORM_CONFIG[formID].url.add:
+									SECTION_FORM_CONFIG[formID].url.edit
+								),
 
-				$('#app-modal-'+formID+' .app-modal-submit').click(function(e){
-					var error = {};
-					e.preventDefault();
-					console.log('#app-modal-'+formID+' [required]');
-					$('#app-modal-'+formID+' :input').each(function(){
-						$(this).removeClass("invalid");
-
-						if(!this.validity.valid){
-							error[$(this).attr("id") || $(this).attr("name")] = ($("label[for='"+$(this).attr("id")+"']").text() || $(this).attr("name")).toString()+' : '+this.validationMessage;
+							});
 						}
 					});
-
-					if(!jQuery.isEmptyObject(error)){
-						Materialize.toast(Object.values(error).join('<br>'), 4000); // 4000 is the duration of the toast
-						$.each(error, function(key, name){
-							$('#'+key+', #app-modal-'+formID+' input[name="'+key+'"]').addClass("invalid");
-						});
-					}else{
-						console.log("Submit Data: ", $('#app-modal-'+formID+' .app-modal-form').serialize());
-						$.ajax({
-							dataType: 'json',
-							method: 'POST',
-							data: $('#app-modal-'+formID+' .app-modal-form').serialize(),
-							error: function(jqXHR, textStatus, errorThrown){
-								Materialize.toast('<span class="text-red">Error while submit data ('+textStatus+'):'+errorThrown+'</span>', 4000); // 4000 is the duration of the toast
-							},
-							success: function(data){
-								if(data.error){
-									Materialize.toast('<span class="red-text">Error: '+((typeof data.error === "string")?data.error:JSON.stringify(data.error))+'</span>', 4000); // 4000 is the duration of the toast
-								}else{
-									Materialize.toast('<span class="green-text">Success!</span>', 2000); // 4000 is the duration of the toast
-									$("#app-modal-"+formID).modal('close');
-									generateTable(formID);
-								}
-							},
-							url:( 
-								jQuery.isEmptyObject($('#app-modal-'+formID+'-'+SECTION_FORM_CONFIG[formID].fields[SECTION_FORM_CONFIG[formID].id_key].slug).val())?
-								SECTION_FORM_CONFIG[formID].url.add:
-								SECTION_FORM_CONFIG[formID].url.edit
-							),
-
-						});
-						//@TODO: add submit procedure
-					}
-				});
-
+					window.alreadyBindEvent['form'][formID] = true;
+				}
 			}
 
 			function generateTable(tableID){
 				if(jQuery.isEmptyObject(SECTION_FORM_CONFIG[tableID]))
 					return;
-				var columnList = [];
-				jQuery.each(SECTION_FORM_CONFIG[tableID].table, function(i, fieldName){
-					columnList.push({ data: fieldName });
-				});
-				columnList.push({ data: null });
-
-				console.log("columnList: ", columnList);
+				
 
 				if(!$('#'+tableID+'-section-list').attr('data-DataTable')){
+					var columnList = [], columnCustomRender = [{
+						"targets": -1,
+						"render": function ( data, type, row ) {
+							//console.log('data, type, row :', data, type, row);
+							return '<a href="'+tableID+'/edit/'+data[SECTION_FORM_CONFIG[tableID].id_key]+'" class="app-'+tableID+'-edit waves-effect waves-light btn">Edit!</a>';
+						}
+					}];
+					if(typeof window.columnGetDataList === "undefined")  window.columnGetDataList = {};
+					window.columnGetDataList[tableID] = [];
+					jQuery.each(SECTION_FORM_CONFIG[tableID].table, function(i, fieldProperties){
+						if(typeof fieldProperties === 'string'){
+							columnList.push({ data: fieldProperties });
+						}else{
+							columnList.push({ data: fieldProperties.localField });
+							columnCustomRender.push({
+								"targets": i,
+								"render": function ( data, type, row ) {
+									window.columnGetDataList[tableID].push([fieldProperties.module, row[fieldProperties.localField]]);
+									return '<span class="app-module-data-placeholder" data-module-name="'+fieldProperties.module+'" data-module-id="'+row[fieldProperties.localField]+'" data-field-name="'+fieldProperties.targetField+'">'+row[fieldProperties.localField]+'</span>';
+								}
+							});
+						}
+					});
+					columnList.push({ data: null });
+
+					console.log("columnList: ", columnList);
+					console.log("columnCustomRender: ", columnCustomRender);
 					window.dataTableObj[tableID] = $('#'+tableID+'-section-list').DataTable( {
 							responsive: true,
 							dom: '<<"row"<"col m8"l><"#'+tableID+'-section-list-searchbox.input-field col m4 right">><t>ip>',
 							ajax: SECTION_FORM_CONFIG[tableID].url.list,
 							columns: columnList,
-							"columnDefs": [ {
-								"targets": -1,
-								"data": null,
-								"defaultContent": '<a href="#!" class="app-'+tableID+'-edit">Edit!</a>'
-							} ]
+							"columnDefs": columnCustomRender,
+							"fnDrawCallback": function(){
+								_bindAjaxLinkElement();
+							}
 					} );
 					$('#'+tableID+'-section-list').attr('data-DataTable', 'true');
 					$('#'+tableID+'-section-list-searchbox').html('<input value="" id="'+tableID+'-section-filter-field" class="white-text" type="text"><label for="'+tableID+'-section-filter-field" class="white-text">Search:</label>');
 					$('#'+tableID+'-section-filter-field').keyup(function(){
 						$('#'+tableID+'-section-list').dataTable().search($(this).val()).draw() ;
 					});
+					window.dataTableObj[tableID].on('xhr', function(){
+						var ajaxJson = window.dataTableObj[tableID].ajax.json();
+						if(typeof window.moduleData[tableID] === 'undefined')
+							window.moduleData[tableID] = {};
+						$.each(ajaxJson.data, function(i, JSONRowData){
+							window.moduleData[tableID][JSONRowData.VendorID] = JSONRowData;
+						});
+
+						console.log('Table AJAX data: ', ajaxJson);
+					});
+					window.dataTableObj[tableID].on('draw.dt', function(){
+						if(!jQuery.isEmptyObject(window.columnGetDataList[tableID])){
+							jQuery.each(window.columnGetDataList[tableID], function(i, eachProperties){
+								window.columnGetDataList[tableID].pop(i);
+								if(!jQuery.isEmptyObject(eachProperties))
+									getModuleData(eachProperties[0], eachProperties[1]);
+							});
+						}
+					});
 				}else{
 					window.dataTableObj[tableID].ajax.reload();
 				}
 				Materialize.updateTextFields();
-
-				/*if(tableID === 'vendor'){
-					//$.fn.dataTableExt.oStdClasses.sPageButton = $.fn.dataTableExt.oStdClasses.sPageButton + " waves-effect waves-light btn";
-					$('#vendor-section-list').DataTable( {
-						responsive: true,
-						dom: '<<"row"<"col m8"l><"#vendor-section-list-searchbox.input-field col m4 right">><t>ip>',
-						ajax: "<?php echo base_url('index.php/vendors/'); ?>",
-						columns: [
-							{ data: "VendorID" },
-							{ data: "FirstName" },
-							{ data: "LastName" },
-							{ data: "CompanyID" },
-							{ data: "VendorPhoneNO" },
-							{ data: "VendorEmail" },
-							{ data: "BuyLocation" },
-							{ data: null }
-						],
-						"columnDefs": [ {
-							"targets": -1,
-							"data": null,
-							"defaultContent": '<a href="#!" class="app-vendor-edit">Edit!</a>'
-						} ]
-					} );
-					$("#vendor-section-list-searchbox").html('<input value="" id="vendor-section-filter-field" class="white-text" type="text"><label for="vendor-section-filter-field" class="white-text">Search:</label>');
-					$("#vendor-section-filter-field").keyup(function(){
-						$('#vendor-section-list').DataTable().search($(this).val()).draw() ;
-					});
-					Materialize.updateTextFields();
-				}*/
 			}
 
 			$(document).ready(function(){
 				window.dataTableObj = {};
+				window.moduleData = {};
+				window.alreadyBindEvent = {};
 				_bindAjaxLinkElement();
 				$('.modal').modal();
 				gotoPage(document.location);
@@ -553,7 +590,9 @@ f<e?g[c]||(b[f+1]&&isNaN(b[f+1])?{}:[]):a,g=m;else h.isArray(d[c])?d[c].push(a):
 						bottom: $target.offset().top + $target.outerHeight() - $this.height()
 					});
 				});
-				generateTable('vendor');
+				jQuery.each(SECTION_FORM_CONFIG, function(sectionName, sectionProp){
+					generateTable(sectionName);
+				})
 			});
 			(function(window,undefined){
 				// Bind to StateChange Event

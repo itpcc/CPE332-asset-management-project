@@ -41,8 +41,8 @@
 				'input'	=> array(
 					'type'	=> 'select2',
 					'required'	=> true,
-					'ajax'	=> base_url('index.php/vendors/dummy_company/'),
-					'ajax_query_id'	=> base_url('index.php/vendors/dummy_company/?id='),
+					'ajax'	=> base_url('index.php/contacted_company/search/'),
+					'ajax_query_id'	=> base_url('index.php/contacted_company/search/?id='),
 					'ajax_text'	=> 'CompanyName',
 					'ajax_id'	=> 'CompanyID'
 				),
@@ -91,7 +91,11 @@
 			'VendorID',
 			'FirstName',
 			'LastName',
-			'CompanyID',
+			array(
+				'localField'	=> 'CompanyID',
+				'module'	=> 'contactedCompany',
+				'targetField'	=> 'CompanyName'
+			),
 			'VendorPhoneNO',
 			'VendorEmail',
 			'BuyLocation'
@@ -102,5 +106,94 @@
 			array('CompanyID'),
 			array('VendorPhoneNO', 'VendorEmail'),
 			array('BuyLocation')
+		)
+	);
+
+	$config['section_detail']['contactedCompany'] = array(
+		'name'	=> 'Contacted Company',
+		'icon'	=> 'domain',
+		'slug'	=> 'contacted-company',
+		'color'	=> 'red',
+		'modal'	=> array(
+			'header'	=> 'จัดการบริษัทสังกัด'
+		),
+		'add'	=> array(
+			'icon'	=> 'domain add'
+		),
+		'fields'	=> array(
+			'CompanyID'	=> array(
+				'input'	=> array(
+					'type'	=> 'hidden'
+				),
+				'name'	=> '#',
+				'slug'	=> 'id'
+			),
+			'CompanyName'	=> array(
+				'input'	=> array(
+					'type'	=> 'text',
+					'required'	=> true
+				),
+				'name'	=> 'Company Name',
+				'slug'	=> 'company_name',
+				'icon'	=> 'domain'
+			),
+			'CompanyPhoneNO'	=> array(
+				'input'	=> array(
+					'type'	=> 'tel',
+					'required'	=> true
+				),
+				'name'	=> 'Phone',
+				'slug'	=> 'tel',
+				'icon'	=> 'phone'
+			),
+			'CompanyFaxNO'	=> array(
+				'input'	=> array(
+					'type'	=> 'tel',
+					'required'	=> true
+				),
+				'name'	=> 'Fax',
+				'slug'	=> 'Fax',
+				'icon'	=> 'phone'
+			),
+			'CompanyEmail'	=> array(
+				'input'	=> array(
+					'type'	=> 'email',
+					'required'	=> true
+				),
+				'name'	=> 'Email',
+				'slug'	=> 'email',
+				'icon'	=> 'email',
+				'validation'	=> 'valid_email'
+			),
+			'SecondaryPhoneNO'	=> array(
+				'input'	=> array(
+					'type'	=> 'tel',
+					'required'	=> false,
+					'show_name'	=> false
+				),
+				'name'	=> '2<sup>nd</sup> Phone',
+				'slug'	=> '2nd-tel'
+			),
+		),
+		'id_key'	=> 'CompanyID',
+		'url'	=> array(
+			'list'	=> base_url('index.php/contacted_company'),
+			'add'	=> base_url('index.php/contacted_company/add'),
+			'edit'	=> base_url('index.php/contacted_company/edit')
+		),
+		'table'	=> array(
+			'CompanyID',
+			'CompanyName',
+			'CompanyPhoneNO',
+			'SecondaryPhoneNO',
+			'CompanyFaxNO',
+			'CompanyEmail'
+		),
+		'form_lines'	=> array(
+			array('CompanyID'),
+			array('CompanyName'),
+			array('CompanyPhoneNO', 'SecondaryPhoneNO'),
+			array('CompanyFaxNO'),
+			array('CompanyEmail')
 		)
 	);
