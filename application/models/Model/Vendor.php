@@ -1,5 +1,5 @@
 <?
-class Asset_model extends CI_Model {
+class Vendor_model extends CI_Model {
         public $Vendor_id;
 		public $data;
 		public $condition;
