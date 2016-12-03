@@ -14,3 +14,5 @@
 - [GitHub For Beginners: Commit, Push And Go](http://readwrite.com/2013/10/02/github-for-beginners-part-2/)
 - [CodeIgniter User Guide](https://www.codeigniter.com/user_guide/)
 - [Markdown Cheat Sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+- [Materialize's manual](http://materializecss.com/)
+- [Zeal](https://zealdocs.org/) โปรแกรมรวม document ของภาษาโปรแกรมต่างๆ แบบ offline พิมพ์ search แล้วขึ้น manual เลย
