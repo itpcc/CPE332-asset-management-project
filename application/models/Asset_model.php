@@ -4,6 +4,7 @@
 class Asset_model extends CI_Model {
 
         public $asset_id;
+        public $error;
         /*public $AssetName;
         public $AssetNumber_Quantity;
         public $AssetClass;
@@ -51,41 +52,44 @@ class Asset_model extends CI_Model {
                 //$this->load->database();
         }
 
-        public function get_all_asset()
+        public function get_asset($condition = NULL)
         {
-                $query = $this->db->get('AssetMain');
-                return $query->result();
-        }
-
-        public function get_asset_by_id($asset_id)
-        {
-                if($asset_id != FALSE) {
-                    $this->db->where('AssetID',$asset_id);
-                    $query = $this->db->get('AssetMain');
-                    return $query->result();
-                  }
-                else {
-                    return FALSE;
-  }
+            if(!empty($condition['AssetID']))
+            {
+                if(is_array($condition['AssetID']))
+                    $this->db->where_in('AssetID', $condition['AssetID']);
+                else
+                    $this->db->where('AssetID', $condition['AssetID']);
+            }
+            
+            return $this->db->get('AssetMain');
         }
 
         public function insert_asset($data)             //array of data (1 row)
         {
                 
-                $this->db->insert('AssetMain',$data);
+                $query = $this->db->insert('AssetMain',$data);
+                return ($query && $this->db->affected_rows() > 0);
 
         }
 
         public function delete_asset_by_id($asset_id) 
         {
-                $this->db->delete('AssetMain', array('AssetID' => $asset_id))
+                $query = $this->db->delete('AssetMain', array('AssetID' => $asset_id));
+                if(!$query)
+                {
+                    $error = $this->db->error();
+                    return FALSE;
+                }
 
+                return TRUE;
         }
 
-        public function edit_asset_by_id($asset_id,$data)
+        public function update_asset_by_id($asset_id,$data)
         {
                 
-                $this->db->update('AssetMain', $data, array('AssetID' => $asset_id))
+                $query = $this->db->update('AssetMain', $data, array('AssetID' => $asset_id));
+                return ($query && $this->db->affected_rows() > 0);
 
         }
 
