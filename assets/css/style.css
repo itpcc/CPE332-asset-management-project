@@ -55,3 +55,45 @@ p {
 footer.page-footer {
   margin: 0;
 }
+
+/* Setup for full-page height */
+html, body{
+  height:100%;
+  margin:0;
+  padding:0;
+}
+section, .parallax-container{
+  height: 100%;
+  min-height: 100vh;
+  line-height: initial;
+}
+section .pushpin-nav{
+  z-index: 99;
+}
+section nav .brand-logo{
+  color: white;
+}
+section nav ul li a:hover, section nav ul li a.active {
+  background-color: rgba(0,0,0,.1);
+}
+
+section > .container{
+  padding-top: calc(5vh + 2.1rem);
+}
+section .photo-credit{
+  position: absolute;
+  bottom: 5%;
+  right: 2%;
+}
+#index-banner{
+  height: calc(100% - 2.1rem);
+  min-height: calc(100vh - 2.1rem);
+}
+#index-banner .section{
+  margin-top: 10%;
+  margin-top: 10vh;
+  background-color: rgba(255,255,255,0.5);
+}
+#vendor-section{
+  background-color: #ee6e73;
+}
