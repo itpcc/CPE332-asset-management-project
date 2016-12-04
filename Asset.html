@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  
+  <nav class="blue darken-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Asset Management</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="Employee.html">Employee</a></li>
+        <li><a href="Asset.html">Asset</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="Employee.html">Employee</a></li>
+        <li><a href="Asset.html">Asset</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <div class="row">
+ <!-- Navbar -->
+  <nav class="nav-extended blue">
+    <div class="nav-wrapper">
+        <ul class="tabs tabs-transparent">
+         <li class="tab"><a href="#Asset_page">Asset Manage</a></li>
+         <li class="tab"><a href="#Purchase_page">Asset Purchase</a></li>
+         <li class="tab"><a href="#Sold_page">Asset Sold</a></li>
+         <li class="tab"><a href="#Category_page">Category</a></li>
+         <li class="tab"><a href="#Depreciation_page">Depreciation Type</a></li>
+         <li class="tab"><a href="#location_page">Asset Location</a></li>
+         <li class="tab"><a href="#movement_page">Asset Movement History</a></li>
+        </ul>
+    </div>
+  </nav>
+  </div>
+<!-- Form -->
+
+
+
+
+<!-- Asset Form -->
+<div  id="Asset_page" >
+  <div class="container">
+    <div class="row col s12">
+      <form class="col s12"><h3>Asset Add</h3>
+        <div class="row">
+          <div class="input-field col s9">
+            <i class="material-icons prefix">shopping_cart</i>
+            <input id="asset_name" type="text" length="50" class="validate">
+            <label for="asset_name">Asset Name</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="quantity" type="number" class="validate">
+            <label for="quantity">Quantity</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4">
+            <i class="material-icons prefix">home</i>
+            <input id="manufacturer" type="text" length="25" class="validate">
+            <label for="manufacturer">Manufacturer</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="vendor_id" type="number" length="8" class="validate">
+            <label for="vendor_id">Seller</label>
+          </div> 
+          <div class="input-field col s4">
+            <input id="employee_id" type="number" length="8" class="validate">
+            <label for="employee_id">Reponsible By</label>
+          </div>
+        </div>
+         <div class="row">
+           <div class="input-field col s4">
+             <i class="material-icons prefix">star_rate</i>
+             <input id="asset_class" type="text" length="10" class="datepicker">
+                <label for="asset_class">Class</label>
+           </div>
+           <div class="input-field col s4">
+             <i class="material-icons prefix">schedule</i>
+             <input id="purchase_date" type="date" class="datepicker">
+           </div>
+           <div class="input-field col s4">
+             <input id="acquisition_date" type="date" class="datepicker">
+                <label for="acquisition_date"></label>
+           </div>
+         </div>
+        <div class="row">
+          <div class="input-field col s3">
+             <i class="material-icons prefix">attach_money</i>
+            <input id="capital_cost" type="number" class="validate">
+            <label for="capital_cost">Capital Cost</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="depreciation_type" type="text" length="2" class="validate">
+            <label for="depreciation_type">Depreciation Type</label>        
+          </div>
+          <div class="input-field col s3">
+            <input id="useful_time" type="number" class="validate">
+            <label for="useful_time">Useful Lifetime</label>        
+          </div>
+          <div class="input-field col s3">
+            <input id="salvage_value" type="number" class="validate">
+            <label for="salvage_value">Salvage Value</label>        
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4">
+             <i class="material-icons prefix">compare_arrows</i>
+            <input id="location_id" type="text" length="8" class="validate">
+            <label for="location_id">Location</label>
+          </div>
+          <div class="input-field col s8">
+            <input id="location_department" type="text" length="25" class="validate">            
+            <label for="location_department">Department</label>
+          </div>
+        </div>
+      </div> 
+      <!-- Table  --> 
+			<!--   Icon Section   -->
+			<div class="row">
+        <h3>Employee List</h3>
+				<table class="vendor-table hoverable" id="vendor-section-list">
+					<thead>
+						<tr>
+															<th>#</th>
+															<th>First Name</th>
+															<th>Last Name</th>
+															<th>Address</th>
+															<th>Phone</th>
+															<th>Email</th>
+														<th>Option</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+    </div>
+  </div>
+<!-- End Asset -->
+
+<!-- Asset Purchase Form -->
+<div  id="Purchase_page" >
+  <div class="container">
+    <div class="row col s12">
+      <form class="col s12"><h3>Asset Purchase Update</h3>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">shopping_cart</i>
+            <input id="asset_name" type="text" length="50" class="validate">
+            <label for="asset_name">Asset Name</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="asset_price" type="number" class="validate">
+            <label for="asset_price">Price</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="vendor_id" type="text" length="8" class="validate">
+            <label for="vendor_id">Seller</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">schedule</i>
+            <input id="purchase_date" type="date" class="validate">
+            <label for="purchase_date"></label>
+          </div>
+          <div class="input-field col s6">
+            <input id="employee_id" type="email" length="8" class="validate">
+            <label for="employee_id">Reponsible By</label>        
+          </div>
+        </div>
+       
+      </div> 
+      <!-- Table  --> 
+			<!--   Icon Section   -->
+			<div class="row">
+        <h3>Asset Purchase History</h3>
+				<table class="vendor-table hoverable" id="vendor-section-list">
+					<thead>
+						<tr>
+															<th>#</th>
+															<th>Asset name</th>
+															<th>Price</th>
+															<th>Purchase Date</th>
+															<th>Vendor</th>
+															<th>Responsible by</th>
+														<th>Option</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+    </div>
+  </div>
+<!-- End Purchase Form -->
+
+<!-- Asset sold Form -->
+<div  id="Sold_page" >
+  <div class="container">
+    <div class="row col s12">
+      <form class="col s12"><h3>Asset Sold Update</h3>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">shopping_cart</i>
+            <input id="asset_name" type="text" length="50" class="validate">
+            <label for="asset_name">Asset Name</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="asset_price" type="number" class="validate">
+            <label for="asset_price">Price</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="client_id" type="text" length="8" class="validate">
+            <label for="client_id">Buyer</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">schedule</i>
+            <input id="sold_date" type="date" class="validate">
+          </div>
+          <div class="input-field col s6">
+            <input id="employee_id" type="email" length="8" class="validate">
+            <label for="employee_id">Reponsible By</label>        
+          </div>
+        </div>
+       
+      </div> 
+      <!-- Table  --> 
+			<!--   Icon Section   -->
+			<div class="row">
+        <h3>Asset Sold out History</h3>
+				<table class="vendor-table hoverable" id="vendor-section-list">
+					<thead>
+						<tr>
+															<th>#</th>
+															<th>Asset name</th>
+															<th>Price</th>
+															<th>Sold Date</th>
+															<th>Seller</th>
+															<th>Responsible by</th>
+														<th>Option</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+    </div>
+  </div>
+<!-- End Sold Form -->
+
+<!-- Category Form -->
+<div  id="Category_page" >
+  <div class="container">
+    <div class="row col s12">
+      <form class="col s12"><h3>Asset Category Add</h3>
+        <div class="row">
+          <div class="input-field col s8">
+            <i class="material-icons prefix">attach_money</i>
+            <input id="asset_type" type="text" length="10" class="validate">
+            <label for="asset_type">Asset Type</label>
+          </div>     
+          <div class="input-field col s4">
+            <input id="depreciation_type" type="text" length="2" class="validate">
+            <label for="depreciation_type">Depreciation Type</label>
+          </div>
+        </div>
+         <div class="row">
+          <div class="input-field col s12">
+             <i class="material-icons prefix">chrome_reader_mode</i>
+            <textarea id="category_description" class="materialize-textarea"></textarea>
+            <label for="category_description">Description</label>
+          </div>
+        </div>
+       
+       </div> 
+      <!-- Table  --> 
+			<!--   Icon Section   -->
+			<div class="row">
+        <h3>Asset Category</h3>
+				<table class="vendor-table hoverable" id="vendor-section-list">
+					<thead>
+						<tr>
+															<th>Asset Type</th>
+															<th>Depreciation Type</th>
+															<th>Description</th>
+														<th>Option</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+    </div>
+  </div>
+<!-- End Category -->
+
+<!-- Depreciation Form -->
+<div  id="Depreciation_page" >
+  <div class="container">
+    <div class="row col s12">
+      <form class="col s12"><h3>Depreciation Type Add</h3>
+        <div class="row">
+          <div class="input-field col s3">
+            <i class="material-icons prefix">attach_money</i>
+            <input id="depreciation_type" type="text" length="2" class="validate">
+            <label for="depreciation_type">Depreciation Type</label>
+          </div>     
+          <div class="input-field col s9">
+            <input id="depreciation_method" type="text" length="50" class="validate">
+            <label for="depreciation_method">Method</label>
+          </div>
+        </div>
+         <div class="row">
+          <div class="input-field col s12">
+             <i class="material-icons prefix">chrome_reader_mode</i>
+            <textarea id="depreciation_description" length="100" class="materialize-textarea"></textarea>
+            <label for="depreciation_description">Description</label>
+          </div>
+        </div>
+       <div class="row">
+          <div class="input-field col s12">
+            <textarea id="constraint" length="100" class="materialize-textarea"></textarea>
+            <label for="constraint">Depreciation Constraint</label>
+          </div>
+        </div>
+       </div> 
+      <!-- Table  --> 
+			<!--   Icon Section   -->
+			<div class="row">
+        <h3>Depreciation Type</h3>
+				<table class="vendor-table hoverable" id="vendor-section-list">
+					<thead>
+						<tr>
+															<th>Depreciation Type</th>
+															<th>Description</th>
+															<th>Depreciation Method</th>
+															<th>Constraint</th>
+														<th>Option</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+    </div>
+  </div>
+<!-- End Depreciation -->
+
+<!-- Location Form -->
+<div  id="location_page" >
+  <div class="container">
+    <div class="row col s12">
+      <form class="col s12"><h3>Asset Location Add</h3>
+        <div class="row">    
+          <div class="input-field col s8">
+             <i class="material-icons prefix">home</i>
+            <input id="location_name" type="text" length="50" class="validate">
+            <label for="location_name">Location Name</label>
+          </div>
+        </div>
+         <div class="row">
+          <div class="input-field col s12">
+             <i class="material-icons prefix">chrome_reader_mode</i>
+            <textarea id="location_address" length="100" class="materialize-textarea"></textarea>
+            <label for="location_address">Address</label>
+          </div>
+        </div>
+       </div> 
+      <!-- Table  --> 
+			<!--   Icon Section   -->
+			<div class="row">
+        <h3>Location</h3>
+				<table class="vendor-table hoverable" id="vendor-section-list">
+					<thead>
+						<tr>
+															<th>#</th>
+															<th>Location Name</th>
+															<th>Address</th>
+														<th>Option</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+    </div>
+  </div>
+<!-- End Location -->
+
+<!-- Movement Form -->
+<div  id="movement_page" >
+  <div class="container">
+    <div class="row col s12">
+      <form class="col s12"><h3>Asset Movement Add</h3>
+        <div class="row">    
+          <div class="input-field col s4">
+             <i class="material-icons prefix">shopping_cart</i>
+            <input id="asset_id" type="text" length="8" class="validate">
+            <label for="asset_id">Asset ID</label>
+          </div>
+          <div class="input-field col s4">
+             <i class="material-icons prefix">home</i>
+            <input id="location_id" type="text" length="8" class="validate">
+            <label for="location_id">Location</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="new_location_id" type="text" length="8" class="validate">
+            <label for="new_location_id">Move To</label>
+          </div>
+        </div>
+         <div class="row">
+          <div class="input-field col s8">
+             <i class="material-icons prefix">chrome_reader_mode</i>
+            <textarea id="new_location_name" length="50" class="materialize-textarea"></textarea>
+            <label for="new_location_name">Address</label>
+          </div>
+           <label for="movement_date">Transfer Date</label>
+          <div class="input-field col s4">
+             <i class="material-icons prefix">schedule</i>
+            <input id="movement_date" type="date" length="8" class="validate">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="employee_id" type="text" class="validate">
+            <label for="employee_id" >Responsible By</label>
+          </div>
+        </div>
+       </div> 
+      <!-- Table  --> 
+			<!--   Icon Section   -->
+			<div class="row">
+        <h3>Location</h3>
+				<table class="vendor-table hoverable" id="vendor-section-list">
+					<thead>
+						<tr>
+															<th>#</th>
+															<th>Asset ID</th>
+															<th>From</th>
+															<th>Move To</th>
+															<th>Address</th>
+															<th>Date</th>
+                              <th>Responsible By</th>
+														<th>Option</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+    </div>
+  </div>
+<!-- End Movement -->
+
+<!-- Background -->
+<div class="parallax"><img src="images/Lucas-gallone.jpg" alt="City background"></div>
+		<div class="chip photo-credit">
+			Background photo by <a href="https://unsplash.com/@lucasgallone">Lucas Gallone</a>
+</div>
+
+<!-- Credits -->
+  <footer class="page-footer grey">
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="black-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>
