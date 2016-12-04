@@ -21,19 +21,19 @@ class Vendor_model extends CI_Model {
 		if(!empty($condition['LastName'])){
 			$this->db->or_like('FirstName', $condition['LastName']);
 		}
-		return $this->db->get('Vendor');
+		return $this->db->get('vendor');
 	}
 	public function insert_vendor($data)             //array of data (1 row)
 	{
-		$this->db->insert('Vendor',$data);
+		$this->db->insert('vendor',$data);
 	}
 	public function delete_vendor_by_id($Vendor_id) 
 	{
-		$this->db->delete('Vendor', array('VendorID' => $Vendor_id));
+		$this->db->delete('vendor', array('VendorID' => $Vendor_id));
 	}
 	public function edit_vendor_by_id($Vendor_id,$data){
 		//var_dump($Vendor_id, $data);
-		$this->db->update('Vendor', $data, array('VendorID' => $Vendor_id));
+		$this->db->update('vendor', $data, array('VendorID' => $Vendor_id));
 	}
 }
 
