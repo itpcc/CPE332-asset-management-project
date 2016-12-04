@@ -15,17 +15,51 @@
 	<link href="https://cdn.datatables.net/v/dt/jq-2.2.3/dt-1.10.12/fh-3.1.2/r-2.1.0/datatables.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 	<link href="<?php echo base_url('assets/css/style.css'); ?>?_time=<?php echo time(); ?>" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<style type="text/css">
+		.module-data{
+			position: relative;
+		}
+		.support-backgroundblendmode .module-data .module-data-background{
+			content: " ";
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			background-position: top center;
+			background-repeat: no-repeat;
+			background-color: inherit;
+			background-blend-mode: overlay;
+			-webkit-filter: grayscale(1);
+			filter: grayscale(1);
+			opacity: 0.15;
+		}
+	</style>
 </head>
 <body>
 	<nav class="white" role="navigation">
 		<div class="nav-wrapper container">
 			<a id="logo-container" href="#" class="brand-logo">Asset Management</a>
 			<ul class="right hide-on-med-and-down">
-				<?php foreach($sectionDetails AS $sectionID => $sectionDetail): ?><li><a href="<?php echo $sectionID; ?>/"><?php echo $sectionDetail['name']; ?></a></li><?php endforeach; ?>
+				<?php foreach($sectionDetails AS $sectionID => $sectionDetail): ?>
+					<li>
+						<a href="<?php echo $sectionID; ?>/">
+							<?php if(isset($sectionDetail['icon'])): ?><i class="material-icons left"><?php echo $sectionDetail['icon']; ?></i><?php endif; ?>
+							<?php echo $sectionDetail['name']; ?>
+						</a>
+					</li>
+				<?php endforeach; ?>
 			</ul>
 
 			<ul id="nav-mobile" class="side-nav">
-				<?php foreach($sectionDetails AS $sectionID => $sectionDetail): ?><li><a href="<?php echo $sectionID; ?>/"><?php echo $sectionDetail['name']; ?></a></li><?php endforeach; ?>
+				<?php foreach($sectionDetails AS $sectionID => $sectionDetail): ?>
+					<li>
+						<?php if(isset($sectionDetail['icon'])): ?><i class="material-icons"><?php echo $sectionDetail['icon']; ?></i><?php endif; ?>
+						<a href="<?php echo $sectionID; ?>/"><?php echo $sectionDetail['name']; ?></a>
+					</li>
+				<?php endforeach; ?>
 			</ul>
 			<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 		</div>
@@ -54,17 +88,26 @@
 	</section>
 
 	<?php foreach($sectionDetails AS $sectionID => $sectionDetail) : ?>
-	<section id="<?php echo $sectionID; ?>-section" class="module-data <?php if(isset($sectionDetail['color'])): ?> <?php echo $sectionDetail['color']; ?> darken-1<?php endif; ?>">
+	<section 
+		id="<?php echo $sectionID; ?>-section" 
+		class="module-data <?php if(isset($sectionDetail['color'])): ?> <?php echo $sectionDetail['color']; ?> darken-1<?php endif; ?>"
+	>
+		<?php if(isset($sectionDetail['background'])) : ?>
+			<div class="module-data-background" style="background-image: url(<?php echo base_url('assets/img/bg/'.$sectionDetail['background']['file']); ?>)"></div>
+			<div class="chip photo-credit">
+				Background photo by <a href="<?php echo $sectionDetail['background']['url']; ?>"><?php echo $sectionDetail['background']['name']; ?></a>
+			</div>
+		<?php endif; ?>
 		<nav class="pushpin-nav" data-target="<?php echo $sectionID; ?>-section">
 			<div class="nav-wrapper<?php if(isset($sectionDetail['color'])): ?> <?php echo $sectionDetail['color']; ?>  darken-3"<?php endif; ?>">
 				<div class="container">
 					<a href="<?php echo $sectionID; ?>/" class="brand-logo"><i class="material-icons"><?php echo $sectionDetail['icon']; ?></i> <?php echo $sectionDetail['name']; ?></a>
 					<a href="#" data-activates="<?php echo $sectionID; ?>-menu-mobile" class="button-collapse white-text"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down" id="<?php echo $sectionID; ?>-menu">
-						<li><a href="<?php echo $sectionID; ?>/add/"><i class="material-icons"><?php echo $sectionDetail['add']['icon']; ?></i></a></li>
+						<li><a href="<?php echo $sectionID; ?>/add/" class="white-text"><i class="material-icons"><?php echo $sectionDetail['add']['icon']; ?></i></a></li>
 					</ul>
 					<ul class="side-nav" id="<?php echo $sectionID; ?>-menu-mobile">
-						<li><a href="<?php echo $sectionID; ?>/add/"><i class="material-icons"><?php echo $sectionDetail['add']['icon']; ?></i></a></li>
+						<li><a href="<?php echo $sectionID; ?>/add/" class="white-text"><i class="material-icons"><?php echo $sectionDetail['add']['icon']; ?></i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -119,7 +162,17 @@
 											></textarea>
 										<?php break;
 										      case 'select': ?>
-										<!-- @TODO: Do select -->
+											<select
+												id="app-modal-<?php echo $sectionID; ?>-<?php echo $sectionDetail['fields'][$formField]['slug']; ?>" 
+												name="<?php echo $formField; ?>" 
+												class="validate"
+											<?php if(isset($sectionDetail['fields'][$formField]['input']['required']) && $sectionDetail['fields'][$formField]['input']['required']) : ?>
+												required="required"
+											<?php endif;?>
+											<?php if(isset($sectionDetail['fields'][$formField]['input']['default'])) : ?>
+												value="<?php echo $sectionDetail['fields'][$formField]['input']['default']; ?>"
+											<?php endif;?>
+											></select>
 										<?php break;
 										      default: ?>
 											<input 
@@ -224,7 +277,8 @@
 	<script src="https://cdn.datatables.net/v/dt/dt-1.10.12/fh-3.1.2/r-2.1.0/datatables.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 	<script src="<?php echo base_url('assets/js/jquery.history.js'); ?>"></script>
-	<script src="<?php echo base_url('assets/js/jquery.deparam.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/jquery.deparam.min.js'); ?>"></script>	
+	<script src="<?php echo base_url('assets/js/modernizr-backgroundBlendMode.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/init.js'); ?>?_time=<?php echo time(); ?>"></script>
 	<script type="text/javascript">
 		var BASE_URL = '<?php echo base_url(); ?>';

@@ -74,6 +74,19 @@ function gotoPage(url){
 				}else{
 					openForm(urlPath[0], dataResult);
 				}
+			}else if(urlPath[1] === 'delete' && typeof urlPath[2] !== "undefined"){
+				dataResult = getModuleData(urlPath[0], urlPath[2]);
+				if(dataResult === false){
+					Materialize.toast("Cannot get data from "+urlPath[0]+':'+urlPath[2], 2000);
+				}else if(dataResult === true){
+					//@TODO loading
+					$(window).one('data-'+urlPath[0]+'-'+urlPath[2]+'-sent', function(){
+						dataResult = getModuleData(urlPath[0], urlPath[2]);
+						deleteModuleData(urlPath[0], urlPath[2]);
+					});
+				}else{
+					deleteModuleData(urlPath[0], urlPath[2]);
+				}
 			}
 		}else{
 			jQuery.noop();
@@ -172,6 +185,13 @@ function openForm(formID, formData){
 			}
 		}else if(fieldProperties.input.type === "select"){
 			//@TODO: Do Select
+			$.getJSON(SECTION_FORM_CONFIG[fieldProperties.input.module].url.list, function(ajaxData){
+				$.each(data.data, function(i, eachData){
+					$('#app-modal-'+formID+'-'+fieldProperties.slug)
+						.append('<option value="'+eachData[fieldProperties.input.option_id]+'">'+eachData[fieldProperties.input.option_text]+'</option>');
+					window.moduleData[fieldProperties.input.module][eachData[fieldProperties.input.option_id]] = eachData;
+				});
+			});
 		}else{
 			if(typeof fieldProperties.input.length === "number"){
 				$('#app-modal-'+formID+'-'+fieldProperties.slug).trigger('autoresize').characterCounter();
@@ -249,7 +269,17 @@ function generateTable(tableID){
 			"targets": -1,
 			"render": function ( data, type, row ) {
 				//console.log('data, type, row :', data, type, row);
-				return '<a href="'+tableID+'/edit/'+data[SECTION_FORM_CONFIG[tableID].id_key]+'" class="app-'+tableID+'-edit waves-effect waves-light btn">Edit!</a>';
+				var str = '<a href="'+tableID+'/edit/'+data[SECTION_FORM_CONFIG[tableID].id_key];
+				str += '" class="app-'+tableID+'-edit waves-effect waves-light btn hoverable';
+				if(typeof SECTION_FORM_CONFIG[tableID].color === 'string')
+					str += ' darken-4 '+SECTION_FORM_CONFIG[tableID].color;
+				str += '" alt="Edit"><i class="material-icons">mode_edit</i><!-- Edit --></a>';
+				str += ' <a href="'+tableID+'/delete/'+data[SECTION_FORM_CONFIG[tableID].id_key];
+				str += '" class="app-'+tableID+'-delete waves-effect waves-light btn hoverable';
+				if(typeof SECTION_FORM_CONFIG[tableID].color === 'string')
+					str += ' darken-4 '+SECTION_FORM_CONFIG[tableID].color;
+				str += '" alt="Delete"><i class="material-icons">delete</i><!-- Delete --></a>';
+				return str;
 			}
 		}];
 		if(typeof window.columnGetDataList === "undefined")  window.columnGetDataList = {};
@@ -312,10 +342,24 @@ function generateTable(tableID){
 	Materialize.updateTextFields();
 }
 
+function deleteModuleData(sectionID, elemID){
+	if(confirm("Are you sure to delte "+SECTION_FORM_CONFIG[sectionID].name+" ID: "+elemID)){
+		$.getJSON(SECTION_FORM_CONFIG[sectionID].url.delete, { 'id': elemID }, function(data){
+			if(data.error){
+				Materialize.toast('<span class="red-text">Error: '+((typeof data.error === "string")?data.error:JSON.stringify(data.error))+'</span>', 4000); // 4000 is the duration of the toast
+			}else{
+				Materialize.toast('<span class="green-text">Success!</span>', 2000); // 4000 is the duration of the toast
+				generateTable(sectionID);
+			}
+		});
+	}
+}
+
 $(document).ready(function(){
 	window.dataTableObj = {};
 	window.moduleData = {};
 	window.alreadyBindEvent = {};
+
 	_bindAjaxLinkElement();
 	$('.modal').modal();
 	gotoPage(document.location);
@@ -329,7 +373,11 @@ $(document).ready(function(){
 	});
 	jQuery.each(SECTION_FORM_CONFIG, function(sectionName, sectionProp){
 		generateTable(sectionName);
-	})
+	});
+
+	if(Modernizr.backgroundblendmode === true){
+		$("body").addClass("support-backgroundblendmode");
+	}
 });
 (function(window,undefined){
 	// Bind to StateChange Event
