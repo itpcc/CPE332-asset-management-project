@@ -39,7 +39,7 @@
          <li class="tab"><a href="#Buy_page">Buy</a></li>
          <li class="tab"><a href="#Sell_page">Sell</a></li>
          <li class="tab"><a href="#Asset_move_page">Move Location</a></li>
-         <li class="tab"><a href="#Role_page">Permission</a></li>
+         <li class="tab"><a href="#Add_Vendor_Client_page">Add Vendor&Client</a></li>
         </ul>
     </div>
   </nav>
@@ -58,7 +58,9 @@
 <div  id="Buy_page" >
   <div class="container">
     <div class="row col s12">
-      <form class="col s12"><h3>Vendor</h3>
+      <form class="col s12">
+        <h3>Buy Asset</h3>
+        <h5>Vendor</h5>
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">account_circle</i>
@@ -94,7 +96,7 @@
             <label for="buy_location">Buy Location</label>
           </div>
         </div>
-        <h3>Company</h3>
+        <h5>Company</h5>
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">account_circle</i>
@@ -133,7 +135,7 @@
             <label for="company_email">Email Address</label>
           </div>
         </div>
-        <h3>Asset Add</h3>
+        <h5>Asset</h5>
         <div class="row">
           <div class="input-field col s4">
             <i class="material-icons prefix">shopping_cart</i>
@@ -175,7 +177,9 @@
 <div  id="Sell_page" >
   <div class="container">
     <div class="row col s12">
-      <form class="col s12"><h3>Client</h3>
+      <form class="col s12">
+        <h3>Sell Asset</h3>
+        <h5>Client</h5>
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">account_circle</i>
@@ -211,7 +215,7 @@
             <label for="client_sell_location">Sell Location</label>
           </div>
         </div>
-        <h3>Company</h3>
+        <h5>Company</h5>
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">account_circle</i>
@@ -250,7 +254,7 @@
             <label for="company_email">Email Address</label>
           </div>
         </div>
-        <h3>Asset Add</h3>
+        <h5>Asset</h5>
         <div class="row">
           <div class="input-field col s4">
             <i class="material-icons prefix">shopping_cart</i>
@@ -300,6 +304,7 @@
 				</table>
 			</div>
     </div>
+    
   </div>
 <!-- End Sell -->
 
@@ -309,7 +314,9 @@
 <div  id="Asset_move_page" >
   <div class="container">
     <div class="row col s12">
-      <form class="col s12"><h3>Asset</h3>
+      <form class="col s12">
+        <h3>Asset Location Change</h3>
+        <h5>Asset</h5>
         <div class="row">
           <div class="input-field col s9">
             <i class="material-icons prefix">shopping_cart</i>
@@ -332,7 +339,7 @@
             <label for="vendor_id">Seller</label>
           </div> 
         </div>
-        <h3>Movement To</h3>
+        <h5>Move To</h5>
         <div class="row">
           <div class="input-field col s6">
              <i class="material-icons prefix">home</i>
@@ -372,42 +379,54 @@
   </div>
 <!-- End Company -->
 
-<!-- Role & Permission Form -->
-<div  id="Role_page" >
+<!-- Vendor & Client Form -->
+<div  id="Add_Vendor_Client_page" >
   <div class="container">
     <div class="row col s12">
-      <form class="col s12"><h3>Permission Edit</h3>
+      <form class="col s12"><h3>Client/Vendor Add</h3>
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">account_circle</i>
-            <input id="permission_name" type="text" length="50" class="validate">
-            <label for="permission_name">Permission Name</label>
+            <input id="client_first_name" type="text" length="20" class="validate">
+            <label for="client_first_name">First Name</label>
           </div>
           <div class="input-field col s6">
-            <input id="permission_level" type="text" length="50" class="validate">
-            <label for="permission_level">Access Level</label>
+            <input id="client_last_name" type="text" length="20" class="validate">
+            <label for="client_last_name">Last Name</label>
+          </div>
+        </div>
+         <div class="row">
+           <div class="input-field col s12">
+             <i class="material-icons prefix">home</i>
+              <input id="company_address" type="text" length="50" class="validate">
+                <label for="company_address">Company</label>
+           </div>
+         </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">phone</i>
+            <input id="phone" type="tel" length="10" class="validate">
+            <label for="phone">Phone Number</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="email" type="email" length="30" class="validate">
+            <label for="email">Email</label>        
+          </div>
+        </div>
+       <div class="row">
+          <div class="input-field col s12">
+            <textarea id="client_sell_location" class="materialize-textarea"></textarea>
+            <label for="client_sell_location">Sell/Buy Location</label>
           </div>
         </div>
       <a class="waves-effect right waves-light btn">Summit</a>
        </div> 
       <!-- Table  --> 
 			<!--   Icon Section   -->
-			<div class="row">
-        <h3>Permission List</h3>
-				<table class="vendor-table hoverable" id="vendor-section-list">
-					<thead>
-						<tr>
-															<th>#</th>
-															<th>Permission Name</th>
-															<th>Access Level</th>
-														<th>Option</th>
-						</tr>
-					</thead>
-				</table>
-			</div>
+			
     </div>
   </div>
-<!-- End Role & Permission -->
+<!-- End Vendor & Client -->
 
 
 <!-- Credits -->
