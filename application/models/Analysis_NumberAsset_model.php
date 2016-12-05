@@ -1,5 +1,5 @@
 <?
-class NumberAsset_Analysis_model extends CI_Model {
+class Analysis_NumberAsset_model extends CI_Model {
 
 
         public function __construct()
@@ -20,7 +20,7 @@ class NumberAsset_Analysis_model extends CI_Model {
 
         }
 
-        public function AssetByCompany() // 2. Report of counting item which is bought from same company (from max to min )  Order by companyName  
+        public function AssetAllCompany() // 2. Report of counting item which is bought from same company (from max to min )  Order by companyName  
         {
                 return $this->db->select('c.companyName, count(p.PurchaseID) as totalBoughtItem')
                         ->from('AssetPurchase as p')

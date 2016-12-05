@@ -1,5 +1,5 @@
 <?
-class Employee_Analysis_model extends CI_Model {
+class Analysis_Employee_model extends CI_Model {
 
           
         
