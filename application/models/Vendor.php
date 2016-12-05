@@ -30,7 +30,27 @@ class Vendor_model extends CI_Model {
         }
         public function edit_vendor_by_id($Vendor_id,$data)
         {
-			$this->db->update('VendorMain', $data, array('VendorID' => $Vendor_id))
+			$this->db->update('Vendor', $data, array('VendorID' => $Vendor_id))
         }
+		public function get_vendor_by_name($condition = NULL)
+		{
+			if(!empty($condition['FirstName']))
+			{
+				if(is_array($condition['FirstName']))
+					$this->db->where_in('FirstName', $condition['FirstName']);
+				else
+					$this->db->where('FirstName',$condition['FirstName']);
+			}	
+			return $this->db->get('Vendor');
+		}
+		 public function delete_vendor_by_name($Vendor_id) 
+        {
+                $this->db->delete('Vendor', array('FirstName' => $Vendor_id))
+        }
+        public function edit_vendor_by_name($Vendor_id,$data)
+        {
+			$this->db->update('Vendor', $data, array('FirstName' => $Vendor_id))
+        }
+		
 }
 ?>

@@ -30,8 +30,26 @@ class Client_model extends CI_Model {
         }
         public function edit_client_by_id($Client_id,$data)
         {
-			$this->db->update('ClientMain', $data, array('ClientID' => $Client_id))
+			$this->db->update('Client', $data, array('ClientID' => $Client_id))
         }
-
+		public function get_client_by_name($condition = NULL)
+		{
+			if(!empty($condition['FirstName']))
+			{
+				if(is_array($condition['FirstName']))
+					$this->db->where_in('FirstName', $condition['FirstName']);
+				else
+					$this->db->where('FirstName',$condition['FirstName']);
+			}	
+			return $this->db->get('Client');
+		}
+		 public function delete_client_by_name($Client_id) 
+        {
+                $this->db->delete('Client', array('FirstName' => $Client_id))
+        }
+        public function edit_client_by_name($Client_id,$data)
+        {
+			$this->db->update('Client', $data, array('FirstName' => $Client_id))
+        }
 }
 ?>
