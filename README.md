@@ -69,6 +69,32 @@
 - delete_all_movement()								//delete all AssetLocationMovement data. no return value and error message
 - update_movement($MovementNO,$data)				//update array of $data (a row) to database which matched $MovementNO
 
+## Analysis_Client_model
+
+- MostBuy()		//หา client ที่ซื้อของเรามาสุด จำนวน และมูลค่า 10 อันดับแรก
+
+## Analysis_NumberAsset_model
+
+- CurrentTotalAsset_ofLocation_Type()  // total number of each type of asset in each location. Order by location ID and Asset Class.
+- AssetAllCompany() 					// Report of counting item which is bought from same company (from max to min )  Order by companyName  
+
+## Analysis_Purchase_model
+
+- TotalByYear($year)// นับยอดการซืเอรวมในแต่ละประเภท asset ใน .... year
+
+## Analysis_Sold_model
+
+-  BestSell_Car()//4. counting item sold of each Car (VC_CA) ’s manufacture (Find Best Seller Manufacture)
+- BestSell_Computer() // 5. counting item sold of each Computer’s manufacture(Find Best Seller Manufacture)
+- BestSell_Asset($Idate)  //10.find best seller item after ... date to current
+- ByClass() //6. counting item sold of each asset type
+- Monthly_Car($year)  //9.ยอดขายที่ขายรถได้ในแต่ละเดิอน of ... year
+
+## Analysis_Employee_model 
+
+- Purchase_PIC() //Counting of Employee who manage assetPurchase (PIC = person in charge)
+- VehicleSold_PIC() //หา Employee ที่ ขาย vehicle ได้มากสุด (10 order) (AssetID = VC.....)
+- MaxBuildingSold_PIC() // Employee ขายออสังหาได้มากสุด(BU_ _)   
 
 
 

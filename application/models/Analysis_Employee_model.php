@@ -39,9 +39,11 @@ class Analysis_Employee_model extends CI_Model {
                 return $this->db->select('e.FirstName, e.LastName, count(s.SoldID) as SoldNumber')
                             ->from('AssetSold as s')
                             ->join('Employee as e', 'e.EmployeeID = s.EmployeeID')
+                            ->join('AssetMain as m', 'm.AssetID = s.AssetID')
+                            ->like('m.AssetClass', 'BU', 'after')
                             ->group_by('s.EmployeeID')
                             ->order_by('SoldNumber','DESC')
-                            ->limit(1)
+                            ->limit(5)
                             ->get();
         }
 
