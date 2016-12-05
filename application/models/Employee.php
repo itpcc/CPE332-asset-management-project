@@ -30,7 +30,26 @@ class Employee_model extends CI_Model {
         }
         public function edit_employee_by_id($Employee_id,$data)
         {
-			$this->db->update('EmployeeMain', $data, array('EmployeeID' => $Employee_id))
+			$this->db->update('Employee', $data, array('EmployeeID' => $Employee_id))
+        }
+		public function get_employee_by_name($condition = NULL)
+		{
+			if(!empty($condition['FirstName']))
+			{
+				if(is_array($condition['FirstName']))
+					$this->db->where_in('FirstName', $condition['FirstName']);
+				else
+					$this->db->where('FirstName',$condition['FirstName']);
+			}	
+			return $this->db->get('Employee');
+		}
+		 public function delete_employee_by_name($Employee_id) 
+        {
+                $this->db->delete('Employee', array('FirstName' => $Employee_id))
+        }
+        public function edit_employee_by_name($Employee_id,$data)
+        {
+			$this->db->update('Employee', $data, array('FirstName' => $Employee_id))
         }
 }
 ?>
