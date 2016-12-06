@@ -12,13 +12,19 @@
 <body>
   
   <nav class="pink darken-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Asset Management</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo">Asset Management</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Home</a></li>
+        <li><a href="Employee.html">Employee</a></li>
+        <li><a href="Asset.html">Asset</a></li>
+        <li><a href="Analysis.html">Analysis Report</a></li>
+        <li><a href="Complex.html">Complex Form</a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Home</a></li>
+        <li><a href="Employee.html">Employee</a></li>
+        <li><a href="Asset.html">Asset</a></li>
+        <li><a href="Analysis.html">Analysis Report</a></li>
+        <li><a href="Complex.html">Complex Form</a></li>
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
@@ -28,12 +34,12 @@
  <!-- Navbar -->
   <nav class="nav-extended">
     <div class="nav-wrapper">
-      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="tabs tabs-transparent">
          <li class="tab"><a href="#Employee_page">Employee</a></li>
          <li class="tab"><a href="#Vendor_page">Vendor</a></li>
          <li class="tab"><a href="#Client_page">Client</a></li>
          <li class="tab"><a href="#Company_page">Company</a></li>
+         <li class="tab"><a href="#Role_page">Permission</a></li>
         </ul>
     </div>
   </nav>
@@ -74,7 +80,7 @@
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">phone</i>
-            <input id="phone" type="text" length="10" class="validate">
+            <input id="phone" type="tel" length="10" class="validate">
             <label for="phone">Phone Number</label>
           </div>
           <div class="input-field col s6">
@@ -82,12 +88,7 @@
             <label for="email">Email</label>        
           </div>
         </div>
-       <!-- <div class="row">
-          <div class="input-field col s12">
-            <textarea id="buy_location" class="materialize-textarea"></textarea>
-            <label for="buy_location">Buy Location</label>
-          </div>
-        </div> -->
+      <a class="waves-effect right waves-light btn">Summit</a>
       </div> 
       <!-- Table  --> 
 			<!--   Icon Section   -->
@@ -137,7 +138,7 @@
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">phone</i>
-            <input id="vendor_phone" type="text" length="10" class="validate">
+            <input id="vendor_phone" type="tel" length="10" class="validate">
             <label for="vendor_phone">Phone Number</label>
           </div>
           <div class="input-field col s6">
@@ -151,6 +152,7 @@
             <label for="buy_location">Buy Location</label>
           </div>
         </div>
+      <a class="waves-effect right waves-light btn">Summit</a>
       </div> 
       <!-- Table  --> 
 			<!--   Icon Section   -->
@@ -201,7 +203,7 @@
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">phone</i>
-            <input id="phone" type="text" length="10" class="validate">
+            <input id="phone" type="tel" length="10" class="validate">
             <label for="phone">Phone Number</label>
           </div>
           <div class="input-field col s6">
@@ -215,6 +217,7 @@
             <label for="client_sell_location">Sell Location</label>
           </div>
         </div>
+      <a class="waves-effect right waves-light btn">Summit</a>
       </div> 
       <!-- Table  --> 
 			<!--   Icon Section   -->
@@ -261,27 +264,28 @@
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">phone</i>
-            <input id="company_phone" type="text" length="10" class="validate">
+            <input id="company_phone" type="tel" length="10" class="validate">
             <label for="company_phone">Phone Number</label>
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">phone</i>
-            <input id="company_phone_2" type="text" length="10" class="validate">
+            <input id="company_phone_2" type="tel" length="10" class="validate">
             <label for="company_phone_2">Secondary Phone Number</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">insert_drive_file</i>
-            <input id="company_fax" type="text" length="15" class="validate">
+            <input id="company_fax" type="tel" length="15" class="validate">
             <label for="company_fax">Fax Number</label>
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">email</i>
-            <input id="company_email" type="text" length="20" class="validate">
+            <input id="company_email" type="email" length="20" class="validate">
             <label for="company_email">Email Address</label>
           </div>
         </div>
+      <a class="waves-effect right waves-light btn">Summit</a>
        </div> 
       <!-- Table  --> 
 			<!--   Icon Section   -->
@@ -305,6 +309,43 @@
     </div>
   </div>
 <!-- End Company -->
+
+<!-- Role & Permission Form -->
+<div  id="Role_page" >
+  <div class="container">
+    <div class="row col s12">
+      <form class="col s12"><h3>Permission Edit</h3>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="permission_name" type="text" length="50" class="validate">
+            <label for="permission_name">Permission Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="permission_level" type="text" length="50" class="validate">
+            <label for="permission_level">Access Level</label>
+          </div>
+        </div>
+      <a class="waves-effect right waves-light btn">Summit</a>
+       </div> 
+      <!-- Table  --> 
+			<!--   Icon Section   -->
+			<div class="row">
+        <h3>Permission List</h3>
+				<table class="vendor-table hoverable" id="vendor-section-list">
+					<thead>
+						<tr>
+															<th>#</th>
+															<th>Permission Name</th>
+															<th>Access Level</th>
+														<th>Option</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+    </div>
+  </div>
+<!-- End Role & Permission -->
 
 
 <!-- Credits -->

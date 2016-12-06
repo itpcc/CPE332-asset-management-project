@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  
+  <nav class="purple darken-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo">Asset Management</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="Employee.html">Employee</a></li>
+        <li><a href="Asset.html">Asset</a></li>
+        <li><a href="Analysis.html">Analysis Report</a></li>
+        <li><a href="Complex.html">Complex Form</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="Employee.html">Employee</a></li>
+        <li><a href="Asset.html">Asset</a></li>
+        <li><a href="Analysis.html">Analysis Report</a></li>
+        <li><a href="Complex.html">Complex Form</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+
+  <div class="row">
+ <!-- Navbar -->
+  <nav class="nav-extended purple">
+    <div class="nav-wrapper">
+        <ul class="tabs tabs-transparent">
+         <li class="tab"><a href="#Buy_page">Buy</a></li>
+         <li class="tab"><a href="#Sell_page">Sell</a></li>
+         <li class="tab"><a href="#Asset_move_page">Move Location</a></li>
+         <li class="tab"><a href="#Add_Vendor_Client_page">Add Vendor&Client</a></li>
+        </ul>
+    </div>
+  </nav>
+  </div>
+<!-- Form -->
+
+
+<!-- Background --> <!-- Fix hai tee -->
+<div class="parallax"><img src="images/Lucas-gallone.jpg" alt="City background"></div>
+		<div class="chip photo-credit">
+			Background photo by <a href="https://unsplash.com/@lucasgallone">Lucas Gallone</a>
+</div>
+
+
+<!-- Buy Form -->
+<div  id="Buy_page" >
+  <div class="container">
+    <div class="row col s12">
+      <form class="col s12">
+        <h3>Buy Asset</h3>
+        <h5>Vendor</h5>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="vendor_first_name" type="text" length="20" class="validate">
+            <label for="vendor_first_name">First Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="vendor_last_name" type="text" length="20" class="validate">
+            <label for="vendor_last_name">Last Name</label>
+          </div>
+        </div>
+         <div class="row">
+           <div class="input-field col s12">
+             <i class="material-icons prefix">home</i>
+              <input id="company_address" type="text" length="50" class="validate">
+                <label for="company_address">Company</label>
+           </div>
+         </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">phone</i>
+            <input id="vendor_phone" type="tel" length="10" class="validate">
+            <label for="vendor_phone">Phone Number</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="vendor_email" type="email" length="30" class="validate">
+            <label for="vendor_email">Email</label>        
+          </div>
+        </div>
+       <div class="row">
+          <div class="input-field col s12">
+            <textarea id="buy_location" length="50" class="materialize-textarea"></textarea>
+            <label for="buy_location">Buy Location</label>
+          </div>
+        </div>
+        <h5>Company</h5>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="company_name" type="text" length="50" class="validate">
+            <label for="company_name">Company Name</label>
+          </div>
+        </div>
+         <div class="row">
+          <div class="input-field col s12">
+             <i class="material-icons prefix">home</i>
+            <textarea id="company_address" length="100" class="materialize-textarea"></textarea>
+            <label for="company_address">Company Address</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">phone</i>
+            <input id="company_phone" type="tel" length="10" class="validate">
+            <label for="company_phone">Phone Number</label>
+          </div>
+          <div class="input-field col s6">
+            <i class="material-icons prefix">phone</i>
+            <input id="company_phone_2" type="tel" length="10" class="validate">
+            <label for="company_phone_2">Secondary Phone Number</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">insert_drive_file</i>
+            <input id="company_fax" type="tel" length="15" class="validate">
+            <label for="company_fax">Fax Number</label>
+          </div>
+          <div class="input-field col s6">
+            <i class="material-icons prefix">email</i>
+            <input id="company_email" type="email" length="20" class="validate">
+            <label for="company_email">Email Address</label>
+          </div>
+        </div>
+        <h5>Asset</h5>
+        <div class="row">
+          <div class="input-field col s4">
+            <i class="material-icons prefix">shopping_cart</i>
+            <input id="asset_id" type="text" length="50" class="validate">
+            <label for="asset_id">Asset ID</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="asset_name" type="text" length="50" class="validate">
+            <label for="asset_name">Asset Name</label>
+          </div>
+          <div class="input-field col s4">
+            <i class="material-icons prefix">home</i>
+            <input id="manufacturer" type="text" length="25" class="validate">
+            <label for="manufacturer">Manufacturer</label>
+          </div>
+        </div>
+        <div class="row"> 
+          <div class="input-field col s3">
+            <i class="material-icons prefix">attach_money</i>
+            <input id="price" type="number" length="8" class="validate">
+            <label for="price">Price</label>
+          </div>          
+          <div class="input-field col s4">
+            <input id="quantity" type="number" class="validate">
+            <label for="quantity">Quantity</label>
+          </div>
+          </div>
+      <a class="waves-effect right waves-light btn">Summit</a>
+      </div> 
+      <!-- Table  --> 
+			<!--   Icon Section   -->
+			
+    </div>
+  </div>
+<!-- End Buy -->
+
+
+<!-- Sell Form -->
+<div  id="Sell_page" >
+  <div class="container">
+    <div class="row col s12">
+      <form class="col s12">
+        <h3>Sell Asset</h3>
+        <h5>Client</h5>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="client_first_name" type="text" length="20" class="validate">
+            <label for="client_first_name">First Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="client_last_name" type="text" length="20" class="validate">
+            <label for="client_last_name">Last Name</label>
+          </div>
+        </div>
+         <div class="row">
+           <div class="input-field col s12">
+             <i class="material-icons prefix">home</i>
+              <input id="company_address" type="text" length="50" class="validate">
+                <label for="company_address">Company</label>
+           </div>
+         </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">phone</i>
+            <input id="phone" type="tel" length="10" class="validate">
+            <label for="phone">Phone Number</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="email" type="email" length="30" class="validate">
+            <label for="email">Email</label>        
+          </div>
+        </div>
+       <div class="row">
+          <div class="input-field col s12">
+            <textarea id="client_sell_location" class="materialize-textarea"></textarea>
+            <label for="client_sell_location">Sell Location</label>
+          </div>
+        </div>
+        <h5>Company</h5>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="company_name" type="text" length="50" class="validate">
+            <label for="company_name">Company Name</label>
+          </div>
+        </div>
+         <div class="row">
+          <div class="input-field col s12">
+             <i class="material-icons prefix">home</i>
+            <textarea id="company_address" length="100" class="materialize-textarea"></textarea>
+            <label for="company_address">Company Address</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">phone</i>
+            <input id="company_phone" type="tel" length="10" class="validate">
+            <label for="company_phone">Phone Number</label>
+          </div>
+          <div class="input-field col s6">
+            <i class="material-icons prefix">phone</i>
+            <input id="company_phone_2" type="tel" length="10" class="validate">
+            <label for="company_phone_2">Secondary Phone Number</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">insert_drive_file</i>
+            <input id="company_fax" type="tel" length="15" class="validate">
+            <label for="company_fax">Fax Number</label>
+          </div>
+          <div class="input-field col s6">
+            <i class="material-icons prefix">email</i>
+            <input id="company_email" type="email" length="20" class="validate">
+            <label for="company_email">Email Address</label>
+          </div>
+        </div>
+        <h5>Asset</h5>
+        <div class="row">
+          <div class="input-field col s4">
+            <i class="material-icons prefix">shopping_cart</i>
+            <input id="asset_id" type="text" length="50" class="validate">
+            <label for="asset_id">Asset ID</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="asset_name" type="text" length="50" class="validate">
+            <label for="asset_name">Asset Name</label>
+          </div>
+          <div class="input-field col s4">
+            <i class="material-icons prefix">home</i>
+            <input id="manufacturer" type="text" length="25" class="validate">
+            <label for="manufacturer">Manufacturer</label>
+          </div>
+        </div>
+        <div class="row"> 
+          <div class="input-field col s3">
+            <i class="material-icons prefix">attach_money</i>
+            <input id="price" type="number" length="8" class="validate">
+            <label for="price">Price</label>
+          </div>          
+          <div class="input-field col s4">
+            <input id="quantity" type="number" class="validate">
+            <label for="quantity">Quantity</label>
+          </div>
+          </div>
+      <a class="waves-effect right waves-light btn">Summit</a>
+      </div> 
+      <!-- Table  --> 
+			<!--   Icon Section   -->
+			<div class="row col s12">
+        <h3>Asset List</h3>
+				<table class="vendor-table hoverable" id="vendor-section-list">
+					<thead>
+						<tr>
+															<th>#</th>
+															<th>First Name</th>
+															<th>Last Name</th>
+															<th>Company</th>
+															<th>Phone</th>
+															<th>Email</th>
+                              <th>Buy location</th>
+														<th>Option</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+    </div>
+    
+  </div>
+<!-- End Sell -->
+
+
+
+<!-- Contact Company Form -->
+<div  id="Asset_move_page" >
+  <div class="container">
+    <div class="row col s12">
+      <form class="col s12">
+        <h3>Asset Location Change</h3>
+        <h5>Asset</h5>
+        <div class="row">
+          <div class="input-field col s9">
+            <i class="material-icons prefix">shopping_cart</i>
+            <input id="asset_name" type="text" length="50" class="validate">
+            <label for="asset_name">Asset Name</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="quantity" type="number" class="validate">
+            <label for="quantity">Quantity</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4">
+            <i class="material-icons prefix">home</i>
+            <input id="manufacturer" type="text" length="25" class="validate">
+            <label for="manufacturer">Manufacturer</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="vendor_id" type="number" length="8" class="validate">
+            <label for="vendor_id">Seller</label>
+          </div> 
+        </div>
+        <h5>Move To</h5>
+        <div class="row">
+          <div class="input-field col s6">
+             <i class="material-icons prefix">home</i>
+            <input id="location_id" type="text" length="8" class="validate">
+            <label for="location_id">Location ID</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="new_location_id" type="text" length="8" class="validate">
+            <label for="new_location_id">New Location ID</label>
+          </div>
+        </div>
+         <div class="row">
+          <div class="input-field col s8">
+             <i class="material-icons prefix">chrome_reader_mode</i>
+            <textarea id="new_location_name" length="50" class="materialize-textarea"></textarea>
+            <label for="new_location_name">Address</label>
+          </div>
+           <label for="movement_date">Transfer Date</label>
+          <div class="input-field col s4">
+             <i class="material-icons prefix">schedule</i>
+            <input id="movement_date" type="date" length="8" class="validate">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="employee_id" type="text" class="validate">
+            <label for="employee_id" >Responsible By</label>
+          </div>
+        </div>
+      <a class="waves-effect right waves-light btn">Summit</a>
+       </div> 
+      <!-- Table  --> 
+			<!--   Icon Section   -->
+			
+    </div>
+  </div>
+<!-- End Company -->
+
+<!-- Vendor & Client Form -->
+<div  id="Add_Vendor_Client_page" >
+  <div class="container">
+    <div class="row col s12">
+      <form class="col s12"><h3>Client/Vendor Add</h3>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="client_first_name" type="text" length="20" class="validate">
+            <label for="client_first_name">First Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="client_last_name" type="text" length="20" class="validate">
+            <label for="client_last_name">Last Name</label>
+          </div>
+        </div>
+         <div class="row">
+           <div class="input-field col s12">
+             <i class="material-icons prefix">home</i>
+              <input id="company_address" type="text" length="50" class="validate">
+                <label for="company_address">Company</label>
+           </div>
+         </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix">phone</i>
+            <input id="phone" type="tel" length="10" class="validate">
+            <label for="phone">Phone Number</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="email" type="email" length="30" class="validate">
+            <label for="email">Email</label>        
+          </div>
+        </div>
+       <div class="row">
+          <div class="input-field col s12">
+            <textarea id="client_sell_location" class="materialize-textarea"></textarea>
+            <label for="client_sell_location">Sell/Buy Location</label>
+          </div>
+        </div>
+      <a class="waves-effect right waves-light btn">Summit</a>
+       </div> 
+      <!-- Table  --> 
+			<!--   Icon Section   -->
+			
+    </div>
+  </div>
+<!-- End Vendor & Client -->
+
+
+<!-- Credits -->
+  <footer class="page-footer orange">
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>
