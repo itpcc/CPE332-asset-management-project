@@ -22,7 +22,7 @@ class Analysis_NumberAsset_model extends CI_Model {
 
         public function AssetAllCompany() // 2. Report of counting item which is bought from same company (from max to min )  Order by companyName  
         {
-                return $this->db->select('c.companyName, count(p.PurchaseID) as totalBoughtItem')
+                return $this->db->select('c.CompanyName, count(p.PurchaseID) as TotalBoughtItem')
                         ->from('AssetPurchase as p')
                         ->join('Vendor as v', 'p.VendorID = v.VendorID')
                         ->join('ContactedCompany as c', 'v.CompanyID = c.CompanyID')
