@@ -134,35 +134,92 @@
             <input id="company_email" type="email" length="20" class="validate">
             <label for="company_email">Email Address</label>
           </div>
-        </div>
-        <h5>Asset</h5>
+        </div><h3>Asset Add</h3>
         <div class="row">
-          <div class="input-field col s4">
+          <div class="input-field col s9">
             <i class="material-icons prefix">shopping_cart</i>
-            <input id="asset_id" type="text" length="50" class="validate">
-            <label for="asset_id">Asset ID</label>
-          </div>
-          <div class="input-field col s4">
             <input id="asset_name" type="text" length="50" class="validate">
             <label for="asset_name">Asset Name</label>
           </div>
+          <div class="input-field col s3">
+            <input id="quantity" type="number" class="validate">
+            <label for="quantity">Quantity</label>
+          </div>
+        </div>
+        <div class="row">
           <div class="input-field col s4">
             <i class="material-icons prefix">home</i>
             <input id="manufacturer" type="text" length="25" class="validate">
             <label for="manufacturer">Manufacturer</label>
           </div>
-        </div>
-        <div class="row"> 
-          <div class="input-field col s3">
-            <i class="material-icons prefix">attach_money</i>
-            <input id="price" type="number" length="8" class="validate">
-            <label for="price">Price</label>
-          </div>          
           <div class="input-field col s4">
-            <input id="quantity" type="number" class="validate">
-            <label for="quantity">Quantity</label>
+            <input id="vendor_id" type="number" length="8" class="validate">
+            <label for="vendor_id">Seller</label>
+          </div> 
+          <div class="input-field col s4">
+            <input id="employee_id" type="number" length="8" class="validate">
+            <label for="employee_id">Reponsible By</label>
           </div>
+        </div>
+         <div class="row">
+           <div class="input-field col s4">
+             <i class="material-icons prefix">star_rate</i>
+             <input id="asset_class" type="text" length="10" class="datepicker">
+                <label for="asset_class">Class</label>
+           </div>
+           <div class="input-field col s4">
+             <i class="material-icons prefix">schedule</i>
+             <input id="purchase_date" type="date" class="datepicker">
+           </div>
+           <div class="input-field col s4">
+             <input id="acquisition_date" type="date" class="datepicker">
+           </div>
+         </div>
+        <div class="row">
+          <div class="input-field col s3">
+             <i class="material-icons prefix">attach_money</i>
+            <input id="capital_cost" type="number" class="validate">
+            <label for="capital_cost">Capital Cost</label>
           </div>
+          <div class="input-field col s3">
+            <input id="depreciation_type" type="text" length="2" class="validate">
+            <label for="depreciation_type">Depreciation Type</label>        
+          </div>
+          <div class="input-field col s3">
+            <input id="useful_time" type="number" class="validate">
+            <label for="useful_time">Useful Lifetime</label>        
+          </div>
+          <div class="input-field col s3">
+            <input id="salvage_value" type="number" class="validate">
+            <label for="salvage_value">Salvage Value</label>        
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4">
+             <i class="material-icons prefix">compare_arrows</i>
+            <input id="location_id" type="text" length="8" class="validate">
+            <label for="location_id">Location</label>
+          </div>
+          <div class="input-field col s8">
+            <input id="location_department" type="text" length="25" class="validate">            
+            <label for="location_department">Department</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4">
+             <i class="material-icons prefix">attach_money</i>
+            <input id="DepreciationValue_perYear" type="text" length="10" class="validate">
+            <label for="DepreciationValue_perYear">Depreciation Value per Year</label>
+          </div>
+          <div class="input-field col s2">
+            <input id="DepreciationRatio" type="text" length="2" class="validate">
+            <label for="DepreciationRatio">Depreciation Ratio</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="DepreciationArea" type="text" length="30" class="validate">
+            <label for="DepreciationArea">Location</label>
+          </div>
+        </div>
       <a class="waves-effect right waves-light btn">Summit</a>
       </div> 
       <!-- Table  --> 
