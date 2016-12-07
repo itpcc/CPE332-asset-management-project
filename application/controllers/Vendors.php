@@ -67,8 +67,6 @@ class Vendors extends CI_Controller {
 				return false;
 			}
 
-			//die(var_dump($this->input->post($this->validationHelper->fieldList)));
-
 			$this->vendor_model->edit_vendor_by_id($this->input->post('VendorID'), $this->input->post($this->validationHelper->fieldList));
 			if($this->db->error()['code']){
 				echo json_encode(array('error'	=> $this->db->error(), 'error_type' => 'db'));

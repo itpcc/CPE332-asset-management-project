@@ -57,7 +57,10 @@ function gotoPage(url){
 	if(urlQueryObj.api){
 		urlPath = $.grep(urlQueryObj.api.split('/'), function(elem){ return elem.length > 0; });
 		console.log(urlPath);
-		if(!jQuery.isEmptyObject(SECTION_FORM_CONFIG[urlPath[0]])){
+		if(urlPath[0] === 'analysis' && typeof urlPath[1] !== "undefined" && typeof ANALYSIS_TABLE[urlPath[1]] !== "undefined"){
+			openAnalysis(urlPath[1]);
+		}else if(!jQuery.isEmptyObject(SECTION_FORM_CONFIG[urlPath[0]])){
+			jQuery("#analysis-session").addClass("hide");
 			scrollTo('#'+urlPath[0]+'-section');
 			if(urlPath[1] === 'add'){
 				openForm(urlPath[0]);
@@ -321,11 +324,12 @@ function generateTable(tableID){
 			var ajaxJson = window.dataTableObj[tableID].ajax.json();
 			if(typeof window.moduleData[tableID] === 'undefined')
 				window.moduleData[tableID] = {};
-			$.each(ajaxJson.data, function(i, JSONRowData){
-				window.moduleData[tableID][JSONRowData.VendorID] = JSONRowData;
-			});
-
-			console.log('Table AJAX data: ', ajaxJson);
+			if(typeof ajaxJson !== "undefined"){
+				$.each(ajaxJson.data, function(i, JSONRowData){
+					window.moduleData[tableID][JSONRowData.VendorID] = JSONRowData;
+				});
+				console.log('Table AJAX data: ', ajaxJson);
+			}
 		});
 		window.dataTableObj[tableID].on('draw.dt', function(){
 			if(!jQuery.isEmptyObject(window.columnGetDataList[tableID])){
@@ -361,7 +365,10 @@ $(document).ready(function(){
 	window.alreadyBindEvent = {};
 
 	_bindAjaxLinkElement();
+
 	$('.modal').modal();
+	$(".dropdown-button").dropdown({hover:true});
+
 	gotoPage(document.location);
 	$('.pushpin-nav').each(function() {
 		var $this = $(this);

@@ -1,4 +1,4 @@
-<?
+<?php
 class Analysis_Employee_model extends CI_Model {
 
           
@@ -14,8 +14,8 @@ class Analysis_Employee_model extends CI_Model {
         public function Purchase_PIC() //3. Counting of Employee who manage assetPurchase (PIC = person in charge)
         {
                 return $this->db->select('e.FirstName, e.LastName, count(p.PurchaseID) as PurchaseInChargeNumber')
-                        ->from('AssetPurchase as p')
-                        ->join('Employee as e', 'e.EmployeeID = p.EmployeeID')
+                        ->from('assetpurchase as p')
+                        ->join('employee as e', 'e.EmployeeID = p.EmployeeID')
                         ->group_by('p.EmployeeID')
                         ->order_by('e.FirstName ASC, e.LastName ASC')
                         ->get();
@@ -25,8 +25,8 @@ class Analysis_Employee_model extends CI_Model {
         public function VehicleSold_PIC() //7.หา Employee ที่ ขาย vehicle ได้มากสุด (10 order)
         {
                 return $this->db->select('e.FirstName, e.LastName, count(s.SoldID) as SoldNumber')
-                            ->from('AssetSold as s')
-                            ->join('Employee as e', 'e.EmployeeID = s.EmployeeID')
+                            ->from('assetsold as s')
+                            ->join('employee as e', 'e.EmployeeID = s.EmployeeID')
                             ->like('s.AssetID', 'VC', 'after')
                             ->group_by('s.EmployeeID')
                             ->order_by('SoldNumber','DESC')
@@ -38,9 +38,9 @@ class Analysis_Employee_model extends CI_Model {
         {
                 return $this->db->select('e.FirstName, e.LastName, count(s.SoldID) as SoldNumber')
                             ->from('AssetSold as s')
-                            ->join('Employee as e', 'e.EmployeeID = s.EmployeeID')
-                            ->join('AssetMain as m', 'm.AssetID = s.AssetID')
-                            ->like('m.AssetClass', 'BU', 'after')
+                            ->join('employee as e', 'e.EmployeeID = s.EmployeeID')
+                            ->join('assetmain as m', 'm.AssetID = s.AssetID')
+                            ->like('m.assetClass', 'BU', 'after')
                             ->group_by('s.EmployeeID')
                             ->order_by('SoldNumber','DESC')
                             ->limit(5)
@@ -49,4 +49,3 @@ class Analysis_Employee_model extends CI_Model {
 
         
 }
-?>

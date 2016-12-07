@@ -1,11 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Roleandpermission extends CI_Controller {
-
+class Client extends CI_Controller {
 	function __construct(){
 		parent::__construct();
-		$this->load->model('RoleAndPermission_model');
+		$this->load->model('Client_model');
 	}
 
 	public function index()	{
@@ -14,8 +13,9 @@ class Roleandpermission extends CI_Controller {
 
 	public function search(){
 		try{
-			$queryResult = $this->RoleAndPermission_model->get_RoleAndPermission(array(
-				'RoleID'	=> $this->input->get('id')
+			$queryResult = $this->Client_model->get_client(array(
+				'ClientID'	=> $this->input->get('id'),
+				'FirstName'	=> $this->input->get('q')
 			));
 			if($queryResult){
 				echo json_encode(array('data' => $queryResult->result_array()));
@@ -34,13 +34,13 @@ class Roleandpermission extends CI_Controller {
 		try{
 			$this->load->model('validationHelper');
 
-			if ($this->validationHelper->validate_section('roleandpermission', 'add') == FALSE){
+			if ($this->validationHelper->validate_section('client', 'add') == FALSE){
 				$error = $this->validationHelper->errors;
 				echo json_encode(array('error'	=> $error, 'error_type'	=> 'form'));
 				return false;
 			}
 
-			$this->RoleAndPermission_model->insert_RoleAndPermission($this->input->post($this->validationHelper->fieldList));
+			$this->Client_model->insert_client($this->input->post($this->validationHelper->fieldList));
 			if($this->db->affected_rows() != 1){
 				echo json_encode(array('error'	=> $this->db->error(), 'error_type' => 'db'));
 			}else{
@@ -60,13 +60,13 @@ class Roleandpermission extends CI_Controller {
 		try{
 			$this->load->model('validationHelper');
 
-			if ($this->validationHelper->validate_section('roleandpermission', 'edit') == FALSE){
+			if ($this->validationHelper->validate_section('client', 'edit') == FALSE){
 				$error = $this->validationHelper->errors;
 				echo json_encode(array('error'	=> $error, 'error_type'	=> 'form'));
 				return false;
 			}
 
-			$this->RoleAndPermission_model->edit_RoleAndPermission_by_id($this->input->post('RoleID'), $this->input->post($this->validationHelper->fieldList));
+			$this->Client_model->edit_client_by_id($this->input->post('ClientID'), $this->input->post($this->validationHelper->fieldList));
 			if($this->db->error()['code']){
 				echo json_encode(array('error'	=> $this->db->error(), 'error_type' => 'db'));
 			}else{
@@ -93,7 +93,7 @@ class Roleandpermission extends CI_Controller {
 				));
 			}
 
-			$this->RoleAndPermission_model->delete_RoleAndPermission_by_id($deleteID);
+			$this->Client_model->delete_client_by_id($deleteID);
 			echo json_encode(array('status' => 'success'));
 		}catch (Exception $e) {
 			echo json_encode(array(

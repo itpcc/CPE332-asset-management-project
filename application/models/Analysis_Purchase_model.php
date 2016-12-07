@@ -1,9 +1,5 @@
- <?
+<?php
 class Analysis_Purchase_model extends CI_Model {
-
-        /*
-           
-        */
         public $year;
 
         public function __construct()
@@ -16,8 +12,8 @@ class Analysis_Purchase_model extends CI_Model {
         public function TotalByYear($year)// 11.นับยอดการซืเอรวมในแต่ละประเภท asset ใน .... year
         {
         		return $this->db->select('m.AssetClass, count(p.PurchaseID) as totalPurchaseItem')
-                        ->from('AssetPurchase as p')
-                        ->join('AssetMain as m', 'm.AssetID = p.AssetID')
+                        ->from('assetpurchase as p')
+                        ->join('assetmain as m', 'm.AssetID = p.AssetID')
                   		->where('p.PurchaseDate',$year)
                         ->group_by('m.AssetClass')
                         ->order_by('m.AssetClass ASC')
@@ -26,7 +22,3 @@ class Analysis_Purchase_model extends CI_Model {
 
         
 }
-?>
-
-
-  

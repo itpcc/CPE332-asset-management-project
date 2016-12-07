@@ -1,6 +1,9 @@
 <?php 
 	$this->config->load('main_form'); 
 	$sectionDetails = $this->config->item('section_detail'); 
+	$this->config->load('analysis_table'); 
+	$analysisTable = $this->config->item('analysis_table');
+	$analysisTableURL = $this->config->item('analysis_table_url'); 
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,27 +42,41 @@
 	</style>
 </head>
 <body>
+	<?php foreach(array('', '-mobile') AS $moduleSuffix): ?>
+	<ul id="moduledropdown<?php echo $moduleSuffix; ?>" class="dropdown-content">
+		<?php foreach($sectionDetails AS $sectionID => $sectionDetail): ?>
+		<li>
+			<a 
+				href="<?php echo $sectionID; ?>/"
+				<?php if(isset($sectionDetail['color'])): ?> class="<?php echo $sectionDetail['color']; ?>-text"<?php endif; ?>
+			>
+				<?php if(isset($sectionDetail['icon'])): ?><i class="material-icons left"><?php echo $sectionDetail['icon']; ?></i><?php endif; ?>
+				<?php echo $sectionDetail['name']; ?>
+			</a>
+		</li>
+		<?php endforeach; ?>
+	</ul>
+	<ul id="analysisdropdown<?php echo $moduleSuffix; ?>" class="dropdown-content">
+		<?php foreach($analysisTable AS $analysisID => $analysisDetail): ?>
+		<li>
+			<a href="analysis/<?php echo $analysisID; ?>/">
+				<?php echo $analysisDetail['name']; ?>
+			</a>
+		</li>
+		<?php endforeach; ?>
+	</ul>
+	<?php endforeach; ?>
+
 	<nav class="white" role="navigation">
 		<div class="nav-wrapper container">
 			<a id="logo-container" href="#" class="brand-logo">Asset Management</a>
 			<ul class="right hide-on-med-and-down">
-				<?php foreach($sectionDetails AS $sectionID => $sectionDetail): ?>
-					<li>
-						<a href="<?php echo $sectionID; ?>/">
-							<?php if(isset($sectionDetail['icon'])): ?><i class="material-icons left"><?php echo $sectionDetail['icon']; ?></i><?php endif; ?>
-							<?php echo $sectionDetail['name']; ?>
-						</a>
-					</li>
-				<?php endforeach; ?>
+				<li><a class="dropdown-button" href="#!" data-activates="moduledropdown"><i class="material-icons left">account_balance_wallet</i> Module &nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>	
+				<li><a class="dropdown-button" href="#!" data-activates="analysisdropdown"><i class="material-icons left">highlight</i> Analysis &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>		
 			</ul>
-
 			<ul id="nav-mobile" class="side-nav">
-				<?php foreach($sectionDetails AS $sectionID => $sectionDetail): ?>
-					<li>
-						<?php if(isset($sectionDetail['icon'])): ?><i class="material-icons"><?php echo $sectionDetail['icon']; ?></i><?php endif; ?>
-						<a href="<?php echo $sectionID; ?>/"><?php echo $sectionDetail['name']; ?></a>
-					</li>
-				<?php endforeach; ?>
+				<li><a class="dropdown-button" href="#!" data-activates="moduledropdown-mobile"><i class="material-icons left">account_balance_wallet</i> Module &nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="dropdown-button" href="#!" data-activates="analysisdropdown-mobile"><i class="material-icons left">highlight</i> Analysis &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>	
 			</ul>
 			<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 		</div>
@@ -234,6 +251,38 @@
 	</section>
 	<?php endforeach; ?>
 
+	<!-- Analysis -->
+	<section class="teal darken-1 hide" id="analysis-section">
+		<nav class="pushpin-nav" data-target="analysis-section">
+			<div class="nav-wrapper teal darken-3">
+				<div class="container">
+					<a href="analysis/" class="brand-logo"><i class="material-icons">highlight</i> Analysis : <span class="analysis-name"></span></a>
+				</div>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<span class="right analysis-description"></span>
+			</div>
+			<div class="row">
+				<div class="input-field col m4 offset-m8 hide" id="analysis-argument-wrapper">
+					<label for="analysis-argument" id="analysis-argument-label"></label>
+					<input type="text" class="validate" name="argument" id="analysis-argument" />
+				</div>
+			</div>
+			<div class="row">
+				<table id="analysis-table" class="bordered bordered responsive-table hoverable">
+					<thead>
+						<tr>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+
 	<footer class="page-footer teal">
 		<div class="container">
 			<div class="row">
@@ -279,12 +328,15 @@
 	<script src="<?php echo base_url('assets/js/jquery.history.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/jquery.deparam.min.js'); ?>"></script>	
 	<script src="<?php echo base_url('assets/js/modernizr-backgroundBlendMode.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/analysis-table.js'); ?>?_time=<?php echo time(); ?>"></script>
 	<script src="<?php echo base_url('assets/js/init.js'); ?>?_time=<?php echo time(); ?>"></script>
 	<script type="text/javascript">
 		var BASE_URL = '<?php echo base_url(); ?>';
 		var BASE_URL_ELEMENT = document.createElement("a");
 		BASE_URL_ELEMENT.href = BASE_URL;
 		var SECTION_FORM_CONFIG = <?php echo json_encode($sectionDetails); ?>;
+		var ANALYSIS_TABLE = <?php echo json_encode($analysisTable); ?>;
+		var ANALYSIS_TABLE_URL = "<?php echo $analysisTableURL; ?>";
 	</script>
 
 	</body>
