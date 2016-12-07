@@ -69,7 +69,7 @@
 
 	<nav class="white" role="navigation">
 		<div class="nav-wrapper container">
-			<a id="logo-container" href="#" class="brand-logo">Asset Management</a>
+			<a id="logo-container" href="<?php echo base_url(''); ?>" class="brand-logo">Asset Management</a>
 			<ul class="right hide-on-med-and-down">
 				<li><a class="dropdown-button" href="#!" data-activates="moduledropdown"><i class="material-icons left">account_balance_wallet</i> Module &nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>	
 				<li><a class="dropdown-button" href="#!" data-activates="analysisdropdown"><i class="material-icons left">highlight</i> Analysis &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>		

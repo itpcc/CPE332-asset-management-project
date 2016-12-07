@@ -1,4 +1,4 @@
-<?
+<?php
 
 class DepreciationKey_model extends CI_Model {
 
@@ -23,20 +23,20 @@ class DepreciationKey_model extends CI_Model {
                     $this->db->where('DepreciationType' ,$condition['DepreciationType']);
             }
             
-            return $this->db->get('DepreciationKey');
+            return $this->db->get('depreciationkey');
         }
 
         public function insert_key($data)             
         {
                 
-                $query = $this->db->insert('DepreciationKey',$data);
+                $query = $this->db->insert('depreciationkey',$data);
                 return ($query && $this->db->affected_rows() > 0);
 
         }
 
         public function delete_key($DepreciationType) 
         {
-                $query = $this->db->delete('DepreciationKey', array('DepreciationType' => $DepreciationType));
+                $query = $this->db->delete('depreciationkey', array('DepreciationType' => $DepreciationType));
                 if(!$query)
                 {
                     $error = $this->db->error();
@@ -48,7 +48,7 @@ class DepreciationKey_model extends CI_Model {
 
         public function delete_all_key()
         {
-                $query = $this->db->empty_table('DepreciationKey');
+                $query = $this->db->empty_table('depreciationkey');
                 if(!$query)
                 {
                     $error = $this->db->error();
@@ -60,9 +60,8 @@ class DepreciationKey_model extends CI_Model {
         public function update_key($DepreciationType,$data)
         {
                 
-                $query = $this->db->update('DepreciationKey', $data, array('DepreciationType' => $DepreciationType));
+                $query = $this->db->update('depreciationkey', $data, array('DepreciationType' => $DepreciationType));
                 return ($query && $this->db->affected_rows() > 0);
         }
 
 }
-?>

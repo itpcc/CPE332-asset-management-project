@@ -21,6 +21,7 @@ class Vendor_model extends CI_Model {
 		if(!empty($condition['LastName'])){
 			$this->db->or_like('FirstName', $condition['LastName']);
 		}
+		$this->db->select("*, CONCAT(FirstName, ' ', LastName) AS FullName");
 		return $this->db->get('vendor');
 	}
 	public function insert_vendor($data)             //array of data (1 row)

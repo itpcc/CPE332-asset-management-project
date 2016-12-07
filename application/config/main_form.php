@@ -501,3 +501,374 @@
 			array('CompanyID', 'RoleID')
 		)
 	);
+
+	$config['section_detail']['depreciation'] = array(
+		'name'	=> 'Depreciation',
+		'icon'	=> 'attach_money',
+		'slug'	=> 'depreciation',
+		'color'	=> 'brown',		
+		'background'	=> array(
+			'file'	=> 'eikbsc3sdti-sonja-langford.jpg',
+			'name'	=> 'Sonja',
+			'url'	=> 'https://unsplash.com/search/clock?photo=eIkbSc3SDtI'
+		),
+		'modal'	=> array(
+			'header'	=> 'จัดการการเสื่อมมูลค่า'
+		),
+		'add'	=> array(
+			'icon'	=> 'attach_money add'
+		),
+		'fields'	=> array(
+			'DepreciatoinType'	=> array(
+				'input'	=> array(
+					'type'	=> 'text'
+				),
+				'name'	=> '#',
+				'slug'	=> 'id'
+			),
+			'DepreciationDef'	=> array(
+				'input'	=> array(
+					'type'	=> 'text',
+					'required'	=> true
+				),
+				'name'	=> 'Description',
+				'slug'	=> 'description',
+				'icon'	=> 'chrome_reader_mode'
+			),
+			'DepreciationMethod'	=> array(
+				'input'	=> array(
+					'type'	=> 'text',
+					'required'	=> true
+				),
+				'name'	=> 'Method',
+				'slug'	=> 'depreciation-method'
+			),
+			'DepreciationConstraint'	=> array(
+				'input'	=> array(
+					'type'	=> 'text',
+					'required'	=> true
+				),
+				'name'	=> 'Depreciation Constraint',
+				'slug'	=> 'depreciation-constraint'
+			)
+		),
+		'id_key'	=> 'DepreciatoinType',
+		'url'	=> array(
+			'list'	=> base_url('index.php/depreciation'),
+			'add'	=> base_url('index.php/depreciation/add'),
+			'edit'	=> base_url('index.php/depreciation/edit'),
+			'delete'	=> base_url('index.php/depreciation/delete')
+		),
+		'table'	=> array(
+			'DepreciatoinType',
+			'DepreciationDef',
+			'DepreciationMethod',
+			'DepreciationConstraint'
+		),
+		'form_lines'	=> array(
+			array('DepreciatoinType', 'DepreciationMethod'),
+			array('DepreciationDef'),
+			array('DepreciationConstraint')
+		)
+	);
+
+	$config['section_detail']['asset'] = array(
+		'name'	=> 'Asset',
+		'icon'	=> 'shopping_cart',
+		'slug'	=> 'asset',
+		'color'	=> 'cyan',
+		'background'	=> array(
+			'file'	=> '0vy082un2pk-edu-grande.jpg',
+			'name'	=> 'Edu Grande',
+			'url'	=> 'https://unsplash.com/collections/307652/shopping?photo=0vY082Un2pk'
+		),
+		'modal'	=> array(
+			'header'	=> 'จัดการสินทรัพย์'
+		),
+		'add'	=> array(
+			'icon'	=> 'add_shopping_cart'
+		),
+		'fields'	=> array(
+			'AssetID'	=> array(
+				'input'	=> array(
+					'type'	=> 'hidden'
+				),
+				'name'	=> '#',
+				'slug'	=> 'id'
+			),
+			'AssetName'	=> array(
+				'input'	=> array(
+					'type'	=> 'text',
+					'required'	=> true
+				),
+				'name'	=> 'Asset Name',
+				'slug'	=> 'asset_name',
+				'icon'	=> 'shopping_cart'
+			),
+			'AssetNumber_Quantity'	=> array(
+				'input'	=> array(
+					'type'	=> 'number',
+					'required'	=> true
+				),
+				'name'	=> 'Quantity',
+				'slug'	=> 'quantity',
+				'validation'	=> 'integer'
+			),
+			'AssetClass'	=> array(
+				'input'	=> array(
+					'type'	=> 'text',
+					'required'	=> true
+				),
+				'name'	=> 'Class',
+				'slug'	=> 'asset_class',
+				'icon'	=> 'star_rate'
+			),
+			'PurchaseDate'	=> array(
+				'input'	=> array(
+					'type'	=> 'date',
+					'required'	=> true
+				),
+				'name'	=> 'Purchase Date',
+				'slug'	=> 'purchase_date',
+				'icon'	=> 'schedule',
+				'validation'	=> 'regex_match[/\d{4}\-\d{2}-\d{2}/]'
+			),
+			'AcquisitionDate'	=> array(
+				'input'	=> array(
+					'type'	=> 'date',
+					'required'	=> true
+				),
+				'name'	=> 'Acquisition Date',
+				'slug'	=> 'acquisition_date',
+				'validation'	=> 'regex_match[/\d{4}\-\d{2}-\d{2}/]'
+			),
+			'CapitalCost'	=> array(
+				'input'	=> array(
+					'type'	=> 'number',
+					'required'	=> true
+				),
+				'name'	=> 'Capital Cost',
+				'slug'	=> 'capital_cost',
+				'validation'	=> 'integer'
+			),
+			'DepreciationType'	=> array(
+				'input'	=> array(
+					'type'	=> 'select',
+					'required'	=> true,
+					'module'	=> 'depreciation',
+					'option_text'	=> 'DepreciatoinType',
+					'option_id'	=> 'DepreciatoinType'
+				),
+				'name'	=> 'Depreciation Type',
+				'slug'	=> 'depreciation-type'
+			),
+			'UsefulLife'	=> array(
+				'input'	=> array(
+					'type'	=> 'number',
+					'required'	=> true
+				),
+				'name'	=> 'Useful Lifetime',
+				'slug'	=> 'useful_life',
+				'validation'	=> 'integer'
+			),
+			'LocationID'	=> array(
+				'input'	=> array(
+					'type'	=> 'select2',
+					'required'	=> true,
+					'ajax'	=> base_url('index.php/asset_location/search/'),
+					'ajax_query_id'	=> base_url('index.php/asset_location/search/?id='),
+					'ajax_text'	=> 'LocationName',
+					'ajax_id'	=> 'LocationID'
+				),
+				'name'	=> 'Location',
+				'slug'	=> 'location-id',
+				'icon'	=> 'compare_arrows'
+			),
+			'LocationDepartment'	=> array(
+				'input'	=> array(
+					'type'	=> 'text',
+					'required'	=> true
+				),
+				'name'	=> 'Location Department',
+				'slug'	=> 'location_department'
+			),
+			'EmployeeID'	=> array(
+				'input'	=> array(
+					'type'	=> 'select2',
+					'required'	=> true,
+					'ajax'	=> base_url('index.php/employee/search/'),
+					'ajax_query_id'	=> base_url('index.php/employee/search/?id='),
+					'ajax_text'	=> 'FullName',
+					'ajax_id'	=> 'EmployeeID'
+				),
+				'name'	=> 'Reponsible By',
+				'slug'	=> 'employee-id'
+			),
+			'VendorID'	=> array(
+				'input'	=> array(
+					'type'	=> 'select2',
+					'required'	=> true,
+					'ajax'	=> base_url('index.php/vendor/search/'),
+					'ajax_query_id'	=> base_url('index.php/vendor/search/?id='),
+					'ajax_text'	=> 'FullName',
+					'ajax_id'	=> 'EmployeeID'
+				),
+				'name'	=> 'Seller',
+				'slug'	=> 'vendor-id'
+			),
+			'Manufacturer'	=> array(
+				'input'	=> array(
+					'type'	=> 'text',
+					'required'	=> true
+				),
+				'name'	=> 'Manufacturer',
+				'slug'	=> 'manufacturer'
+			),
+			'SalvageValue'	=> array(
+				'input'	=> array(
+					'type'	=> 'number',
+					'required'	=> true
+				),
+				'name'	=> 'Salvage Value',
+				'slug'	=> 'salvage_value',
+				'validation'	=> 'integer'
+			),
+			'DepreciationValue_perYear'	=> array(
+				'input'	=> array(
+					'type'	=> 'number',
+					'required'	=> true
+				),
+				'name'	=> 'Depreciation Value (per Year)',
+				'slug'	=> 'depreciation-value_per-year',
+				'validation'	=> 'numeric'
+			),
+			'DepreciationRatio'	=> array(
+				'input'	=> array(
+					'type'	=> 'number',
+					'required'	=> true
+				),
+				'name'	=> 'Depreciation Ratio',
+				'slug'	=> 'depreciation-ratio',
+				'validation'	=> 'numeric'
+			),
+			'DepreciationArea'	=> array(
+				'input'	=> array(
+					'type'	=> 'text',
+					'required'	=> true
+				),
+				'name'	=> 'Depreciation Area',
+				'slug'	=> 'depreciation-area'
+			),
+
+		),
+		'id_key'	=> 'AssetID',
+		'url'	=> array(
+			'list'	=> base_url('index.php/asset'),
+			'add'	=> base_url('index.php/asset/add'),
+			'edit'	=> base_url('index.php/asset/edit'),
+			'delete'	=> base_url('index.php/asset/delete')
+		),
+		'table'	=> array(
+			'AssetID',
+			'AssetName',
+			'AssetNumber_Quantity',
+			'AssetClass',
+			'PurchaseDate',
+			'AcquisitionDate',
+			'CapitalCost',
+			'DepreciationType',
+			'UsefulLife',
+			array(
+				'localField'	=> 'LocationID',
+				'module'	=> 'asset_location',
+				'targetField'	=> 'LocationName'
+			),
+			'LocationDepartment',
+			array(
+				'localField'	=> 'EmployeeID',
+				'module'	=> 'employee',
+				'targetField'	=> 'FullName'
+			),
+			'',
+			array(
+				'localField'	=> 'VendorID',
+				'module'	=> 'vendor',
+				'targetField'	=> 'FullName'
+			),
+			'Manufacturer',
+			'SalvageValue',
+			'DepreciationValue_perYear',
+			'DepreciationRatio',
+			'DepreciationArea'
+		),
+		'form_lines'	=> array(
+			array('AssetID'),
+			array('AssetName', 'AssetNumber_Quantity'),
+			array('Manufacturer', 'VendorID', 'EmployeeID'),
+			array('AssetClass', 'PurchaseDate', 'AcquisitionDate'),
+			array('CapitalCost', 'DepreciationType', 'UsefulLife', 'SalvageValue'),
+			array('LocationID', 'LocationDepartment'),
+			array('DepreciationValue_perYear', 'DepreciationRatio','DepreciationArea')
+		)
+	);
+
+	$config['section_detail']['asset_location'] = array(
+		'name'	=> 'Asset Location',
+		'icon'	=> 'pin_drop',
+		'slug'	=> 'asset-location',
+		'color'	=> 'green',		
+		'background'	=> array(
+			'file'	=> 'rkbtpqpegdo-jean-frederic-fortier.jpg',
+			'name'	=> 'Jean-Frederic Fortier',
+			'url'	=> 'https://unsplash.com/search/map?photo=RkBTPqPEGDo'
+		),
+		'modal'	=> array(
+			'header'	=> 'จัดการที่ตั้งสินทรัพย์'
+		),
+		'add'	=> array(
+			'icon'	=> 'pin_drop add'
+		),
+		'fields'	=> array(
+			'LocationID'	=> array(
+				'input'	=> array(
+					'type'	=> 'hidden'
+				),
+				'name'	=> '#',
+				'slug'	=> 'id'
+			),
+			'LocationName'	=> array(
+				'input'	=> array(
+					'type'	=> 'text',
+					'required'	=> true
+				),
+				'name'	=> 'Location Name',
+				'slug'	=> 'location-name'
+			),
+			'LocationAddress'	=> array(
+				'input'	=> array(
+					'type'	=> 'text',
+					'required'	=> true
+				),
+				'name'	=> 'Location Address',
+				'slug'	=> 'location-address',
+				'icon'	=> 'chrome_reader_mode'
+			)
+		),
+		'id_key'	=> 'LocationID',
+		'url'	=> array(
+			'list'	=> base_url('index.php/asset_location'),
+			'add'	=> base_url('index.php/asset_location/add'),
+			'edit'	=> base_url('index.php/asset_location/edit'),
+			'delete'	=> base_url('index.php/asset_location/delete')
+		),
+		'table'	=> array(
+			'LocationID',
+			'LocationName',
+			'LocationAddress'
+		),
+		'form_lines'	=> array(
+			array('LocationID'),
+			array('LocationName'),
+			array('LocationAddress')
+		)
+	);

@@ -22,6 +22,7 @@ class Employee_model extends CI_Model {
 				else
 					$this->db->or_where('FirstName',$condition['FirstName'])->or_where('LastName',$condition['FirstName']);
 			}
+			$this->db->select("*, CONCAT(FirstName, ' ', LastName) AS FullName");
 			return $this->db->get('employee');
 		}
         public function insert_employee($data){             //array of data (1 row)
