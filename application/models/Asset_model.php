@@ -1,4 +1,4 @@
-<?
+<?php
 
 
 class Asset_model extends CI_Model {
@@ -62,20 +62,20 @@ class Asset_model extends CI_Model {
                     $this->db->where('AssetID', $condition['AssetID']);
             }
             
-            return $this->db->get('AssetMain');
+            return $this->db->get('assetmain');
         }
 
         public function insert_asset($data)             //array of data (1 row)
         {
                 
-                $query = $this->db->insert('AssetMain',$data);
+                $query = $this->db->insert('assetmain',$data);
                 return ($query && $this->db->affected_rows() > 0);
 
         }
 
         public function delete_asset_by_id($asset_id) 
         {
-                $query = $this->db->delete('AssetMain', array('AssetID' => $asset_id));
+                $query = $this->db->delete('assetmain', array('AssetID' => $asset_id));
                 if(!$query)
                 {
                     $error = $this->db->error();
@@ -88,10 +88,9 @@ class Asset_model extends CI_Model {
         public function update_asset_by_id($asset_id,$data)
         {
                 
-                $query = $this->db->update('AssetMain', $data, array('AssetID' => $asset_id));
+                $query = $this->db->update('assetmain', $data, array('AssetID' => $asset_id));
                 return ($query && $this->db->affected_rows() > 0);
 
         }
 
 }
-?>

@@ -27,7 +27,7 @@ class ValidationHelper extends CI_Model {
 			}
 
 			if($type==='edit')
-				$this->form_validation->set_rules($this->sectionDetail[$sectionName]['id_key'], $this->sectionDetail[$sectionName]['fields'][$this->sectionDetail[$sectionName]['id_key']]['name'], 'required|integer');
+				$this->form_validation->set_rules($this->sectionDetail[$sectionName]['id_key'], $this->sectionDetail[$sectionName]['fields'][$this->sectionDetail[$sectionName]['id_key']]['name'], 'required');
 
 			$this->errors['field'] = array();
 			foreach ($this->sectionDetail[$sectionName]['fields'] as $fieldName => $fieldDetail) {
@@ -65,7 +65,9 @@ class ValidationHelper extends CI_Model {
 				return false;
 			}else if($this->form_validation->run() === FALSE){
 				$this->errors['field'] = $this->form_validation->error_array();
-				return false;
+				if(!empty($this->errors['field']))
+					return false;
+				return true;
 			}
 
 			return true;	

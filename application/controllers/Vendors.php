@@ -41,7 +41,7 @@ class Vendors extends CI_Controller {
 
 			//die(var_dump($this->input->post($this->validationHelper->fieldList)));
 
-			$this->vendor_model->insert_vendor('vendor', $this->input->post($this->validationHelper->fieldList));
+			$this->vendor_model->insert_vendor($this->input->post($this->validationHelper->fieldList));
 			if($this->db->affected_rows() != 1){
 				echo json_encode(array('error'	=> $this->db->error(), 'error_type' => 'db'));
 			}else{

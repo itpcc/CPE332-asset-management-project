@@ -1,6 +1,6 @@
-<?
+<?php
 
-class AssetLocationMovementMovement_model extends CI_Model {
+class AssetLocationMovement_model extends CI_Model {
 
         public $MovementNO;
         public $AssetID;
@@ -89,4 +89,3 @@ class AssetLocationMovementMovement_model extends CI_Model {
         }
 
 }
-?>

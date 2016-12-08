@@ -22,7 +22,7 @@ class ContactedCompany_model extends CI_Model {
 			if(is_array($condition['CompanyName']))
 				$this->db->or_where_in('CompanyName', $condition['CompanyName']);
 			else
-				$this->db->or_where('CompanyName',$condition['CompanyName']);
+				$this->db->or_like('CompanyName',$condition['CompanyName']);
 		}
 		return $this->db->get('contactedcompany');
 	}

@@ -58,14 +58,14 @@ class Analysis_Sold_model extends CI_Model {
                             ->get();
         }
 
-        public function Monthly_Car($year)  //9.ยอดขายที่ขายรถได้ในแต่ละเดิอน of ... year
+        public function Monthly_Car($year)  //9.ยอดขายที่ขายรถแE��้แE��แต่ละเดิอกEof ... year
         {
-            return $this->db->select("date('M') as 'SaleMonth', 'count(s.SoldID) as SoldNumber' ")
+            return $this->db->select(' MONTH(s.SoldDate) as SaleMonth , count(s.SoldID) as SoldNumber' )
                             ->from('assetsold as s')
                             ->join('assetmain as m','s.AssetID = m.AssetID')
                             ->where('m.AssetClass','VC_CA')
                             ->where('YEAR(s.SoldDate)', $year)
-                            ->group_by('MONTH(s.SoldDate)')
+                            ->group_by('SaleMonth')
                             ->order_by('SaleMonth','ASC')
                             ->get();
         }

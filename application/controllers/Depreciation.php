@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Depreciation extends CI_Controller {
 	private $sectionID = 'depreciation';
-	private $sectionKey = 'DepreciatoinType';
+	private $sectionKey = 'DepreciationType';
 
 	private $modelName = 'DepreciationKey_model';
 
@@ -42,20 +42,25 @@ class Depreciation extends CI_Controller {
 	public function add(){
 		try{
 			$this->load->model('validationHelper');
-
-			if ($this->validationHelper->validate_section($this->sectionID, 'add') == FALSE){
+			$error = array();
+			if ($this->validationHelper->validate_section($this->sectionID, 'add') === FALSE){
 				$error = $this->validationHelper->errors;
+			}
+
+			if(!empty($error)){
 				echo json_encode(array('error'	=> $error, 'error_type'	=> 'form'));
 				return false;
 			}
 
-			//die(var_dump($this->input->post($this->validationHelper->fieldList)));
+			log_message('debug', "ADD Depreciation: ".json_encode($this->input->post($this->validationHelper->fieldList)));
+			$fieldList = array($this->sectionKey => $this->input->post($this->sectionKey)) + $this->input->post($this->validationHelper->fieldList);
 
-			$this->{$this->modelName}->{$this->addMethod}($this->sectionID, $this->input->post($this->validationHelper->fieldList));
-			if($this->db->affected_rows() != 1){
+			if(!$this->{$this->modelName}->{$this->addMethod}(
+				$fieldList
+			)) {
 				echo json_encode(array('error'	=> $this->db->error(), 'error_type' => 'db'));
 			}else{
-				echo json_encode(array('status' => 'success'));
+				echo json_encode(array('status' => 'success', '__sql' => $this->db->queries[0]));
 			}
 		}catch (Exception $e) {
 			echo json_encode(array(
@@ -69,6 +74,12 @@ class Depreciation extends CI_Controller {
 
 	public function edit(){
 		try{
+			$queryResult = $this->db->where(array('DepreciationType'   => $this->input->post($this->sectionKey)))->get('depreciationkey');
+            //var_dump($queryResult->num_rows());
+            if(!$queryResult OR !$queryResult->num_rows()) {
+            	$this->add();
+            	return;
+            }
 			$this->load->model('validationHelper');
 
 			if ($this->validationHelper->validate_section($this->sectionID, 'edit') == FALSE){
@@ -81,7 +92,7 @@ class Depreciation extends CI_Controller {
 			if($this->db->error()['code']){
 				echo json_encode(array('error'	=> $this->db->error(), 'error_type' => 'db'));
 			}else{
-				echo json_encode(array('status' => 'success'));
+				echo json_encode(array('status' => 'success', 'ID' => $this->input->post($this->sectionKey), '__sql' => $this->db->queries[0]));
 			}
 		}catch (Exception $e) {
 			echo json_encode(array(

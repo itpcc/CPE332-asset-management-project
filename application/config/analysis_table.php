@@ -2,7 +2,7 @@
 	$config['analysis_table'] = array(
 		'current_totalasset_oflocation_type'	=> array(
 			'name'	=> 'Asset in Responsible List By Location',
-			'description'	=> 'total number of each type of asset in each location. Order by location ID and Asset Class.',
+			'description'	=> 'Total number of each type of asset in each location. Order by No. of Asset',
 			'fields'	=> array(
 				'LocationID' => 'Location ID',
 				'LocationName' => 'Location Name',
@@ -14,7 +14,7 @@
 		),
 		'purchase_asset_from_company'	=> array(
 			'name'	=> 'Number of purchased Asset From the same Company',
-			'description'	=> 'Report of counting item which bought from same company (from max to min )  Order by companyName  ',
+			'description'	=> 'Report of counting item which bought from same company .Order by company name',
 			'fields'	=> array(
 				'CompanyName' => 'Company Name',
 				'TotalBoughtItem' => 'Total Bought Item'
@@ -24,7 +24,7 @@
 		),
 		'best_seller_car'	=> array(
 			'name'	=> 'Best Seller Car List',
-			'description'	=> 'counting item sold of each Car ’s manufacture',
+			'description'	=> 'Counting item sold of each Car  manufacture (Find Best Seller Manufacture 10 places) ' ,
 			'fields'	=> array(
 				'Manufacturer'	=> 'Manufacturer',
 				'TotalSoldNumber'	=> 'No. of Sold Asset'
@@ -34,7 +34,7 @@
 		),
 		'best_seller_computer'	=> array(
 			'name'	=> 'Best Seller Computer List',
-			'description'	=> 'counting item sold of each Computer’s manufacture',
+			'description'	=> 'Counting item sold of each Computer manufacture (Find best 10 places)',
 			'fields'	=> array(
 				'Manufacturer' => 'Manufacturer',
 				'TotalSoldNumber' => 'No. of Sold Asset'
@@ -44,7 +44,7 @@
 		),
 		'best_asset_sold'	=> array(
 			'name'	=> 'Best Asset Sold List',
-			'description'	=> 'find best seller item after ... date to current',
+			'description'	=> 'Find best seller item after x date to present',
 			'argument' => array(
 				array(
 					'name' => 'Since date',
@@ -60,7 +60,7 @@
 		),
 		'sell_by_class'	=> array(
 			'name'	=> 'Best Asset Sold List By Class',
-			'description'	=> 'counting item sold of each asset type',
+			'description'	=> 'Counting item sold of each asset type',
 			'fields'	=> array(
 				'AssetClass' => 'Asset Class',
 				'SoldNumber' => 'No. of Sold Asset'
@@ -70,7 +70,7 @@
 		),
 		'monthy_car_sold'	=> array(
 			'name'	=> 'Number of Car sold in each month',
-			'description'	=> 'ยอดขายที่ขายรถได้ในแต่ละเดิอน of ... year',
+			'description'	=> 'Total car sold for each month in selected year',
 			'argument' => array(
 				array(
 					'name' => 'In year',
@@ -86,7 +86,7 @@
 		),
 		'best_purchase_manage_employee'	=> array(
 			'name'	=> 'List of Employee woh manage purchase',
-			'description'	=> 'Counting of Employee who manage assetPurchase',
+			'description'	=> 'Counting of employees who had manage asset purchase',
 			'fields'	=> array(
 				'FirstName' => 'Employee First Name',
 				'LastName' => 'Employee Last Name',
@@ -97,7 +97,7 @@
 		),
 		'best_vehicle_seller_employee'	=> array(
 			'name'	=> 'Best Vehicle Seller Employee List',
-			'description'	=> 'Employee ที่ ขาย vehicle ได้มากสุด (10 order)',
+			'description'	=> 'Counting of employees who sell the best number of vehivle (10 order)',
 			'fields'	=> array(
 				'FirstName' => 'Employee First Name',
 				'LastName' => 'Employee Last Name',
@@ -108,7 +108,7 @@
 		),
 		'best_building_seller_employee'	=> array(
 			'name'	=> 'Best Building Seller Employee List',
-			'description'	=> 'Employee ขาย building ได้มากสุด',
+			'description'	=> 'Employee that can sell the most building (10 place)' ,
 			'fields'	=> array(
 				'FirstName' => 'Employee First Name',
 				'LastName' => 'Employee Last Name',
@@ -119,7 +119,7 @@
 		),
 		'total_assetclass_purchase'	=> array(
 			'name'	=> 'Total Asset Class Purchase List',
-			'description'	=> 'นับยอดการซืเอรวมในแต่ละประเภท asset ใน .... year',
+			'description'	=> '',
 			'argument' => array(
 				array(
 					'name' => 'In year',
@@ -130,12 +130,12 @@
 				'AssetClass' => 'Asset Class',
 				'totalPurchaseItem' => 'Total brought in-purchase'
 			),
-			'model'	=> 'Analysis_Purchase_modell',
+			'model'	=> 'Analysis_Purchase_model',
 			'method'	=> 'TotalByYear'
 		),
 		'client_purchease'	=> array(
 			'name'	=> 'Most Clients Buying List',
-			'description'	=> 'หา client ที่ซื้อของเรามาสุด จำนวน และมูลค่า 10 อันดับแรก',
+			'description'	=> 'Client that buy the most asset (show only 10 place) ',
 			'fields'	=> array(
 				'FirstName' => 'Client First Name',
 				'LastName' => 'Client Last Name',

@@ -189,11 +189,18 @@ function openForm(formID, formData){
 		}else if(fieldProperties.input.type === "select"){
 			//@TODO: Do Select
 			$.getJSON(SECTION_FORM_CONFIG[fieldProperties.input.module].url.list, function(ajaxData){
-				$.each(data.data, function(i, eachData){
-					$('#app-modal-'+formID+'-'+fieldProperties.slug)
-						.append('<option value="'+eachData[fieldProperties.input.option_id]+'">'+eachData[fieldProperties.input.option_text]+'</option>');
-					window.moduleData[fieldProperties.input.module][eachData[fieldProperties.input.option_id]] = eachData;
+				$.each(ajaxData.data, function(i, eachData){
+					var optionKey = eachData[fieldProperties.input.option_id];
+					var optionValue = eachData[fieldProperties.input.option_text];
+					var selectElem = '#app-modal-'+formID+'-'+fieldProperties.slug;
+					if(!$(selectElem+' option[value='+optionKey+']').length){
+						$(selectElem)
+							.append('<option value="'+optionKey+'">'+optionValue+'</option>');
+						window.moduleData[fieldProperties.input.module][optionKey] = eachData;
+					}
 				});
+				$('select').material_select('destroy');
+				$('select').material_select();
 			});
 		}else{
 			if(typeof fieldProperties.input.length === "number"){
@@ -318,7 +325,10 @@ function generateTable(tableID){
 		$('#'+tableID+'-section-list').attr('data-DataTable', 'true');
 		$('#'+tableID+'-section-list-searchbox').html('<input value="" id="'+tableID+'-section-filter-field" class="white-text" type="text"><label for="'+tableID+'-section-filter-field" class="white-text">Search:</label>');
 		$('#'+tableID+'-section-filter-field').keyup(function(){
-			$('#'+tableID+'-section-list').dataTable().search($(this).val()).draw() ;
+			var searchStr = $(this).val();
+
+			console.log(tableID, ' Is searching ', searchStr, 'FROM', $('#'+tableID+'-section-list').DataTable());
+			$('#'+tableID+'-section-list').DataTable().search(searchStr).draw() ;
 		});
 		window.dataTableObj[tableID].on('xhr', function(){
 			var ajaxJson = window.dataTableObj[tableID].ajax.json();

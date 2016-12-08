@@ -11,12 +11,13 @@ class Analysis_NumberAsset_model extends CI_Model {
 
         public function CurrentTotalAsset_ofLocation_Type()  //1. total number of each type of asset in each location. Order by location ID and Asset Class.
         {
-                return $this->db->select('m.LocationID, l.LocationName, m.AssetClass, count(m.AssetID) as NumberOfAsset')
+             	return $this->db->select('l.LocationID, l.LocationName, m.AssetClass, count(m.AssetID) as NumberOfAsset')
                         ->from('assetmain as m')
                         ->join('assetlocation as l', 'l.LocationID = m.LocationID')
-                        ->group_by('m.LocationID')
-                        ->order_by('m.LocationID ASC, m.AssetClass ASC')
+                        ->group_by('l.LocationID')
+			->order_by('NumberOfAsset','DESC')
                         ->get();
+
 
         }
 

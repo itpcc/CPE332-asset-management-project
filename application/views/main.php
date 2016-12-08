@@ -42,6 +42,32 @@
 	</style>
 </head>
 <body>
+	<div id="login-modal" class="modal">
+		<div class="modal-content">
+			<h4>Login</h4>
+			<div class="row">
+				<form class="col s12" id="login-form">
+					<div class="row">
+						<div class="input-field col s6">
+							<input id="first_name" type="text" class="validate">
+							<label for="first_name">Username</label>
+						</div>
+						<div class="input-field col s6">
+							<input id="last_name" type="password" class="validate">
+							<label for="last_name">Password</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input type="submit" class="waves-effect waves-light btn">
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+
 	<?php foreach(array('', '-mobile') AS $moduleSuffix): ?>
 	<ul id="moduledropdown<?php echo $moduleSuffix; ?>" class="dropdown-content">
 		<?php foreach($sectionDetails AS $sectionID => $sectionDetail): ?>
@@ -72,11 +98,13 @@
 			<a id="logo-container" href="<?php echo base_url(''); ?>" class="brand-logo">Asset Management</a>
 			<ul class="right hide-on-med-and-down">
 				<li><a class="dropdown-button" href="#!" data-activates="moduledropdown"><i class="material-icons left">account_balance_wallet</i> Module &nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>	
-				<li><a class="dropdown-button" href="#!" data-activates="analysisdropdown"><i class="material-icons left">highlight</i> Analysis &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>		
+				<li><a class="dropdown-button" href="#!" data-activates="analysisdropdown"><i class="material-icons left">highlight</i> Analysis &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="login-logout"><i class="material-icons left">lock</i> Logout</a></li>	
 			</ul>
 			<ul id="nav-mobile" class="side-nav">
 				<li><a class="dropdown-button" href="#!" data-activates="moduledropdown-mobile"><i class="material-icons left">account_balance_wallet</i> Module &nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button" href="#!" data-activates="analysisdropdown-mobile"><i class="material-icons left">highlight</i> Analysis &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>	
+				<li><a class="dropdown-button" href="#!" data-activates="analysisdropdown-mobile"><i class="material-icons left">highlight</i> Analysis &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="login-logout"><i class="material-icons left">lock</i> Logout</a></li>
 			</ul>
 			<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 		</div>
@@ -88,10 +116,10 @@
 				<h1 class="header text-lighten-2">CPE332 Asset management project</h1>
 				<div class="row">
 					<h5 class="header col s12 light">Web application for manage assets.</h5>
-					<p>Brought to you by</p>
+					<p>by</p>
 					<ol>
-						<li>Mr. Athicom Fahpratanchai -- 570705010xx</li>
-						<li>Mr. Wirot Saehang -- 570705010xx</li>
+						<li>Mr. Athicom Fahpratanchai -- 57070501057</li>
+						<li>Mr. Wirot Saehang -- 57070501039</li>
 						<li>Mr. Rachasak Ragkamnerd -- 57070501075</li>
 						<li>Mr. Suttiwat Songboonkaew -- 57070501079</li>
 					</ol>
@@ -115,7 +143,7 @@
 				Background photo by <a href="<?php echo $sectionDetail['background']['url']; ?>"><?php echo $sectionDetail['background']['name']; ?></a>
 			</div>
 		<?php endif; ?>
-		<nav class="pushpin-nav" data-target="<?php echo $sectionID; ?>-section">
+		<nav class="<?php //pushpin-nav ?>" data-target="<?php echo $sectionID; ?>-section">
 			<div class="nav-wrapper<?php if(isset($sectionDetail['color'])): ?> <?php echo $sectionDetail['color']; ?>  darken-3"<?php endif; ?>">
 				<div class="container">
 					<a href="<?php echo $sectionID; ?>/" class="brand-logo"><i class="material-icons"><?php echo $sectionDetail['icon']; ?></i> <?php echo $sectionDetail['name']; ?></a>
@@ -136,7 +164,7 @@
 					<thead>
 						<tr>
 							<?php foreach($sectionDetail['table'] AS $tableField): ?>
-								<th><?php echo $sectionDetail['fields'][is_array($tableField)?($tableField['localField']):$tableField]['name']; ?></th>
+								<th><?php echo $sectionDetail['fields'][(is_array($tableField)?($tableField['localField']):$tableField)]['name']; ?></th>
 							<?php endforeach; ?>
 							<th>Option</th>
 						</tr>
@@ -182,7 +210,7 @@
 											<select
 												id="app-modal-<?php echo $sectionID; ?>-<?php echo $sectionDetail['fields'][$formField]['slug']; ?>" 
 												name="<?php echo $formField; ?>" 
-												class="validate"
+												class="validate browser-default"
 											<?php if(isset($sectionDetail['fields'][$formField]['input']['required']) && $sectionDetail['fields'][$formField]['input']['required']) : ?>
 												required="required"
 											<?php endif;?>
@@ -252,7 +280,7 @@
 	<?php endforeach; ?>
 
 	<!-- Analysis -->
-	<section class="teal darken-1 hide" id="analysis-section">
+	<section class=" light-blue darken-1 hide indigo-text text-darken-4" id="analysis-section">
 		<nav class="pushpin-nav" data-target="analysis-section">
 			<div class="nav-wrapper teal darken-3">
 				<div class="container">
@@ -261,16 +289,16 @@
 			</div>
 		</nav>
 		<div class="container">
-			<div class="row">
+			<div class="row white-text">
 				<span class="right analysis-description"></span>
 			</div>
-			<div class="row">
+			<div class="row white-text">
 				<div class="input-field col m4 offset-m8 hide" id="analysis-argument-wrapper">
 					<label for="analysis-argument" id="analysis-argument-label"></label>
 					<input type="text" class="validate" name="argument" id="analysis-argument" />
 				</div>
 			</div>
-			<div class="row">
+			<div class="row white">
 				<table id="analysis-table" class="bordered bordered responsive-table hoverable">
 					<thead>
 						<tr>
@@ -283,41 +311,363 @@
 		</div>
 	</section>
 
-	<footer class="page-footer teal">
+	<!-- Buy Form -->
+	<section id="Buy_page" class="complex-page">
 		<div class="container">
-			<div class="row">
-				<div class="col l6 s12">
-					<h5 class="white-text">Company Bio</h5>
-					<p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+			<div class="row col s12">
+				<form class="col s12" action="<?php echo base_url('index.php/complex_Form/buy/'); ?>">
+					<h3>Buy Asset</h3>
+					<h5>Vendor</h5>
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">account_circle</i>
+							<input name="vendor_first_name" id="vendor_first_name" type="text" length="20" class="validate">
+							<label for="vendor_first_name">First Name</label>
+						</div>
+						<div class="input-field col s6">
+							<input name="vendor_last_name" id="vendor_last_name" type="text" length="20" class="validate">
+							<label for="vendor_last_name">Last Name</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">phone</i>
+							<input name="vendor_phone" id="vendor_phone" type="tel" length="10" class="validate">
+							<label for="vendor_phone">Phone Number</label>
+						</div>
+						<div class="input-field col s6">
+							<input name="vendor_email" id="vendor_email" type="email" length="30" class="validate">
+							<label for="vendor_email">Email</label>        
+						</div>
+					</div>
+				 	<div class="row">
+						<div class="input-field col s12">
+							<textarea name="buy_location" id="buy_location" length="50" class="materialize-textarea"></textarea>
+							<label for="buy_location">Buy Location</label>
+						</div>
+					</div>
+					<h5>Company</h5>
+					<div class="row">
+						<div class="input-field col s12">
+							<i class="material-icons prefix">account_circle</i>
+							<input name="company_name" id="buy_company_name" type="text" length="50" class="validate">
+							<label for="company_name">Company Name</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							 <i class="material-icons prefix">home</i>
+							<textarea name="company_address" id="buy_company_address" length="100" class="materialize-textarea"></textarea>
+							<label for="company_address">Company Address</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">phone</i>
+							<input name="company_phone" id="buy_company_phone" type="tel" length="10" class="validate">
+							<label for="company_phone">Phone Number</label>
+						</div>
+						<div class="input-field col s6">
+							<i class="material-icons prefix">phone</i>
+							<input name="company_phone_2" id="buy_company_phone_2" type="tel" length="10" class="validate">
+							<label for="company_phone_2">Secondary Phone Number</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">insert_drive_file</i>
+							<input name="company_fax" id="buy_company_fax" type="tel" length="15" class="validate">
+							<label for="company_fax">Fax Number</label>
+						</div>
+						<div class="input-field col s6">
+							<i class="material-icons prefix">email</i>
+							<input name="company_email" id="buy_company_email" type="email" length="20" class="validate">
+							<label for="company_email">Email Address</label>
+						</div>
+					</div>
+					<h5>Asset</h5>
+					<div class="row">
+						<div class="input-field col s4">
+							<i class="material-icons prefix">shopping_cart</i>
+							<input name="asset_id" id="buy_asset_id" type="text" length="50" class="validate">
+							<label for="asset_id">Asset ID</label>
+						</div>
+						<div class="input-field col s4">
+							<input name="asset_name" id="buy_asset_name" type="text" length="50" class="validate">
+							<label for="asset_name">Asset Name</label>
+						</div>
+						<div class="input-field col s4">
+							<i class="material-icons prefix">home</i>
+							<input name="manufacturer" id="buy_manufacturer" type="text" length="25" class="validate">
+							<label for="manufacturer">Manufacturer</label>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="input-field col s3">
+							<i class="material-icons prefix">attach_money</i>
+							<input name="price" id="buy_price" type="number" length="8" class="validate">
+							<label for="price">Price</label>
+						</div>          
+						<div class="input-field col s4">
+							<input name="quantity" id="buy_quantity" type="number" class="validate">
+							<label for="quantity">Quantity</label>
+						</div>
+					</div>
+					<div class="row">
+						<input class="waves-effect right waves-light btn" type="submit">
+					</div>
+				</form>
+			</div> 
+				<!-- Table  --> 
+			<!--   Icon Section   -->				
+		</div>
+	</section>
+	<!-- End Buy -->
 
 
-				</div>
-				<div class="col l3 s12">
-					<h5 class="white-text">Settings</h5>
-					<ul>
-						<li><a class="white-text" href="#!">Link 1</a></li>
-						<li><a class="white-text" href="#!">Link 2</a></li>
-						<li><a class="white-text" href="#!">Link 3</a></li>
-						<li><a class="white-text" href="#!">Link 4</a></li>
-					</ul>
-				</div>
-				<div class="col l3 s12">
-					<h5 class="white-text">Connect</h5>
-					<ul>
-						<li><a class="white-text" href="#!">Link 1</a></li>
-						<li><a class="white-text" href="#!">Link 2</a></li>
-						<li><a class="white-text" href="#!">Link 3</a></li>
-						<li><a class="white-text" href="#!">Link 4</a></li>
-					</ul>
-				</div>
+	<!-- Sell Form -->
+	<section  id="Sell_page" class="complex-page">
+		<div class="container">
+			<div class="row col s12">
+				<form class="col s12" action="<?php echo base_url('index.php/complex_Form/sold/'); ?>">
+					<h3>Sell Asset</h3>
+					<h5>Client</h5>
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">account_circle</i>
+							<input name="client_first_name" id="client_first_name" type="text" length="20" class="validate">
+							<label for="client_first_name">First Name</label>
+						</div>
+						<div class="input-field col s6">
+							<input name="client_last_name" id="client_last_name" type="text" length="20" class="validate">
+							<label for="client_last_name">Last Name</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<i class="material-icons prefix">home</i>
+							<input name="client_address" id="client_address" type="text" length="50" class="validate">
+							<label for="client_address">Address</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">phone</i>
+							<input name="phone" id="sold_phone" type="tel" length="10" class="validate">
+							<label for="phone">Phone Number</label>
+						</div>
+						<div class="input-field col s6">
+							<input name="email" id="sold_email" type="email" length="30" class="validate">
+							<label for="email">Email</label>        
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<textarea name="client_sell_location" id="sold_client_sell_location" class="materialize-textarea"></textarea>
+							<label for="client_sell_location">Sell Location</label>
+						</div>
+					</div>
+					<h5>Company</h5>
+					<div class="row">
+						<div class="input-field col s12">
+							<i class="material-icons prefix">account_circle</i>
+							<input name="company_name" id="sold_company_name" type="text" length="50" class="validate">
+							<label for="company_name">Company Name</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							 <i class="material-icons prefix">home</i>
+							<textarea name="company_address" id="sold_company_address" length="100" class="materialize-textarea"></textarea>
+							<label for="company_address">Company Address</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">phone</i>
+							<input name="company_phone" id="sold_company_phone" type="tel" length="10" class="validate">
+							<label for="company_phone">Phone Number</label>
+						</div>
+						<div class="input-field col s6">
+							<i class="material-icons prefix">phone</i>
+							<input name="company_phone_2" id="sold_company_phone_2" type="tel" length="10" class="validate">
+							<label for="company_phone_2">Secondary Phone Number</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">insert_drive_file</i>
+							<input name="company_fax" id="sold_company_fax" type="tel" length="15" class="validate">
+							<label for="company_fax">Fax Number</label>
+						</div>
+						<div class="input-field col s6">
+							<i class="material-icons prefix">email</i>
+							<input name="company_email" id="sold_company_email" type="email" length="20" class="validate">
+							<label for="company_email">Email Address</label>
+						</div>
+					</div>
+					<h5>Asset</h5>
+					<div class="row">
+						<div class="input-field col s4">
+							<i class="material-icons prefix">shopping_cart</i>
+							<input name="asset_id" id="sold_asset_id" type="text" length="50" class="validate">
+							<label for="asset_id">Asset ID</label>
+						</div>
+						<div class="input-field col s4">
+							<input name="asset_name" id="sold_asset_name" type="text" length="50" class="validate">
+							<label for="asset_name">Asset Name</label>
+						</div>
+						<div class="input-field col s4">
+							<i class="material-icons prefix">home</i>
+							<input name="manufacturer" id="sold_manufacturer" type="text" length="25" class="validate">
+							<label for="manufacturer">Manufacturer</label>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="input-field col s3">
+							<i class="material-icons prefix">attach_money</i>
+							<input name="price" id="sold_price" type="number" length="8" class="validate">
+							<label for="price">Price</label>
+						</div>          
+						<div class="input-field col s4">
+							<input name="quantity" id="sold_quantity" type="number" class="validate">
+							<label for="quantity">Quantity</label>
+						</div>
+					</div>
+					<div class="row">
+						<input class="waves-effect right waves-light btn" type="submit">
+					</div>
+				</form>
 			</div>
 		</div>
-		<div class="footer-copyright">
-			<div class="container">
-			Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-			</div>
+	</section>
+	<!-- End Sell -->
+
+
+
+	<!-- Contact Company Form -->
+	<section  id="Asset_move_page" class="complex-page">
+		<div class="container">
+			<div class="row col s12">
+				<form class="col s12" action="<?php echo base_url('index.php/complex_Form/transfer_asset/'); ?>">
+					<h3>Asset Location Change</h3>
+					<h5>Asset</h5>
+					<div class="row">
+						<div class="input-field col s9">
+							<i class="material-icons prefix">shopping_cart</i>
+							<input name="asset_name" id="move_asset_name" type="text" length="50" class="validate">
+							<label for="asset_name">Asset Name</label>
+						</div>
+						<div class="input-field col s3">
+							<input name="quantity" id="move_quantity" type="number" class="validate">
+							<label for="quantity">Quantity</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s4">
+							<i class="material-icons prefix">home</i>
+							<input name="manufacturer" id="move_manufacturer" type="text" length="25" class="validate">
+							<label for="manufacturer">Manufacturer</label>
+						</div>
+						<div class="input-field col s4">
+							<input name="vendor_id" id="move_vendor_id" type="number" length="8" class="validate">
+							<label for="vendor_id">Seller</label>
+						</div> 
+					</div>
+					<h5>Move To</h5>
+					<div class="row">
+						<div class="input-field col s6">
+							 <i class="material-icons prefix">home</i>
+							<input name="location_id" id="location_id" type="text" length="8" class="validate">
+							<label for="location_id">Location ID</label>
+						</div>
+						<div class="input-field col s6">
+							<input name="new_location_id" id="new_location_id" type="text" length="8" class="validate">
+							<label for="new_location_id">New Location ID</label>
+						</div>
+					</div>
+					 <div class="row">
+						<div class="input-field col s8">
+							 <i class="material-icons prefix">chrome_reader_mode</i>
+							<textarea name="new_location_name" id="new_location_name" length="50" class="materialize-textarea"></textarea>
+							<label for="new_location_name">Address</label>
+						</div>
+						 <label for="movement_date">Transfer Date</label>
+						<div class="input-field col s4">
+							 <i class="material-icons prefix">schedule</i>
+							<input name="movement_date" id="movement_date" type="date" length="8" class="validate">
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s4">
+							<i class="material-icons prefix">account_circle</i>
+							<input name="employee_id" id="employee_id" type="text" class="validate">
+							<label for="employee_id" >Responsible By</label>
+						</div>
+					</div>
+					<div class="row">
+						<input class="waves-effect right waves-light btn" type="submit">
+					</div>
+				</form>
+			</div> 
+				<!-- Table  --> 
+				<!--   Icon Section   -->
 		</div>
-	</footer>
+	</section>
+	<!-- End Company -->
+
+	<!-- Vendor & Client Form -->
+	<section  id="Add_Vendor_Client_page" class="complex-page">
+		<div class="container">
+			<div class="row col s12">
+				<form class="col s12" action="<?php echo base_url('index.php/complex_Form/add_client_vendor/'); ?>">
+					<h3>Client/Vendor Add</h3>
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">account_circle</i>
+							<input name="client_first_name" id="vc_client_first_name" type="text" length="20" class="validate">
+							<label for="client_first_name">First Name</label>
+						</div>
+						<div class="input-field col s6">
+							<input name="client_last_name" id="vc_client_last_name" type="text" length="20" class="validate">
+							<label for="client_last_name">Last Name</label>
+						</div>
+					</div>
+					<div class="row">
+						 <div class="input-field col s12">
+							 <i class="material-icons prefix">home</i>
+								<input name="company_address" id="vc_company_address" type="text" length="50" class="validate">
+									<label for="company_address">Company</label>
+						 </div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">phone</i>
+							<input name="phone" id="vc_phone" type="tel" length="10" class="validate">
+							<label for="phone">Phone Number</label>
+						</div>
+						<div class="input-field col s6">
+							<input name="email" id="vc_email" type="email" length="30" class="validate">
+							<label for="email">Email</label>        
+						</div>
+					</div>
+				 	<div class="row">
+						<div class="input-field col s12">
+							<textarea name="client_sell_location" id="client_sell_location" class="materialize-textarea"></textarea>
+							<label for="client_sell_location">Sell/Buy Location</label>
+						</div>
+					</div>
+					<div class="row">
+						<input class="waves-effect right waves-light btn" type="submit">
+					</div>
+				</form>
+			</div> 
+				<!-- Table  --> 
+				<!--   Icon Section   -->
+				
+		</div>
+	</section>
+	<!-- End Vendor & Client -->
 
 
 	<!--  Scripts-->
@@ -337,6 +687,43 @@
 		var SECTION_FORM_CONFIG = <?php echo json_encode($sectionDetails); ?>;
 		var ANALYSIS_TABLE = <?php echo json_encode($analysisTable); ?>;
 		var ANALYSIS_TABLE_URL = "<?php echo $analysisTableURL; ?>";
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.modal').modal();
+			if(localStorage.getItem("is-login") === null)
+				$('#login-modal').modal('open');
+			$("#login-form").submit(function(e){
+				e.preventDefault();
+				$('#login-modal').modal('close');
+				localStorage.setItem("is-login", "truether");
+			});
+
+			$(".login-logout").click(function(e){
+				e.preventDefault();
+				$('#login-modal').modal('open');
+				localStorage.removeItem("is-login");
+			});
+			$(".complex-page form[action]").submit(function(e){
+				e.preventDefault();
+				$.ajax({
+					url: $(this).attr("action"),
+					type: "POST",
+					data: $(this).serialize(),
+                    dataType: 'json',
+                    error: function(XMLHttpRequest, textStatus, errorThrown)  {
+                        Materialize.toast("An error has occurred making the request: " + errorThrown, 4000);
+                    },
+                    success: function(data){
+                    	if(data.error){
+                    		Materialize.toast("Server response: " + JSON.stringify(data.error), 4000);
+                    	}else{
+                    		Materialize.toast("Success!", 2000);
+                    	}
+                    }
+				});
+			});
+		});
 	</script>
 
 	</body>

@@ -33,7 +33,7 @@ class Client_model extends CI_Model {
         }
         public function delete_client_by_id($Client_id) 
         {
-                $this->db->delete('client', array('ClientID' => $Client_id));
+                	$this->db->delete('client', array('ClientID' => $Client_id));
         }
         public function edit_client_by_id($Client_id,$data)
         {

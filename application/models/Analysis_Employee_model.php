@@ -22,28 +22,30 @@ class Analysis_Employee_model extends CI_Model {
 
         }
 
-        public function VehicleSold_PIC() //7.หา Employee ที่ ขาย vehicle ได้มากสุด (10 order)
+        public function VehicleSold_PIC() //7.หา Employee ทีแEขาย vehicle แE��้มากสุกE(10 order)
         {
                 return $this->db->select('e.FirstName, e.LastName, count(s.SoldID) as SoldNumber')
                             ->from('assetsold as s')
                             ->join('employee as e', 'e.EmployeeID = s.EmployeeID')
-                            ->like('s.AssetID', 'VC', 'after')
+		  ->join('assetmain as m', 'm.AssetID = s.AssetID')
+                            ->like('m.AssetClass', 'VC', 'after')
                             ->group_by('s.EmployeeID')
                             ->order_by('SoldNumber','DESC')
                             ->limit(10)
                             ->get();
+
         }
 
-         public function MaxBuildingSold_PIC() // 8.Employee ขาออสังหาได้มากสุด
+         public function MaxBuildingSold_PIC() // 8.Employee ขาออสักE��าแE��้มากสุกE
         {
                 return $this->db->select('e.FirstName, e.LastName, count(s.SoldID) as SoldNumber')
-                            ->from('AssetSold as s')
+                            ->from('assetsold as s')
                             ->join('employee as e', 'e.EmployeeID = s.EmployeeID')
                             ->join('assetmain as m', 'm.AssetID = s.AssetID')
-                            ->like('m.assetClass', 'BU', 'after')
+                            ->like('m.AssetClass', 'BU', 'after')
                             ->group_by('s.EmployeeID')
                             ->order_by('SoldNumber','DESC')
-                            ->limit(5)
+                            ->limit(10)
                             ->get();
         }
 

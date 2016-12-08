@@ -63,7 +63,8 @@
 				}
 
 				echo json_encode(array(
-					'data'	=> $queryResult->result_array()
+					'data'	=> $queryResult->result_array(),
+					'__sql'	=> $this->db->last_query()
 				));
 
 			} catch (Exception $e) {

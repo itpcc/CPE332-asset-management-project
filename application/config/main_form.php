@@ -148,6 +148,15 @@
 				'slug'	=> 'company_name',
 				'icon'	=> 'domain'
 			),
+			'CompanyAddress'	=> array(
+				'input'	=> array(
+					'type'	=> 'textarea',
+					'required'	=> true,
+					'length'	=> 100
+				),
+				'name'	=> 'Company Address',
+				'slug'	=> 'company_address'
+			),
 			'CompanyPhoneNO'	=> array(
 				'input'	=> array(
 					'type'	=> 'tel',
@@ -196,6 +205,7 @@
 		'table'	=> array(
 			'CompanyID',
 			'CompanyName',
+			'CompanyAddress',
 			'CompanyPhoneNO',
 			'SecondaryPhoneNO',
 			'CompanyFaxNO',
@@ -204,6 +214,7 @@
 		'form_lines'	=> array(
 			array('CompanyID'),
 			array('CompanyName'),
+			array('CompanyAddress'),
 			array('CompanyPhoneNO', 'SecondaryPhoneNO'),
 			array('CompanyFaxNO'),
 			array('CompanyEmail')
@@ -419,7 +430,7 @@
 					'required'	=> true,
 					'length'	=> 100
 				),
-				'name'	=> 'Sell Location',
+				'name'	=> 'Address',
 				'slug'	=> 'address',
 				'icon'	=> 'home'
 			),
@@ -519,7 +530,7 @@
 			'icon'	=> 'attach_money add'
 		),
 		'fields'	=> array(
-			'DepreciatoinType'	=> array(
+			'DepreciationType'	=> array(
 				'input'	=> array(
 					'type'	=> 'text'
 				),
@@ -552,7 +563,7 @@
 				'slug'	=> 'depreciation-constraint'
 			)
 		),
-		'id_key'	=> 'DepreciatoinType',
+		'id_key'	=> 'DepreciationType',
 		'url'	=> array(
 			'list'	=> base_url('index.php/depreciation'),
 			'add'	=> base_url('index.php/depreciation/add'),
@@ -560,13 +571,13 @@
 			'delete'	=> base_url('index.php/depreciation/delete')
 		),
 		'table'	=> array(
-			'DepreciatoinType',
+			'DepreciationType',
 			'DepreciationDef',
 			'DepreciationMethod',
 			'DepreciationConstraint'
 		),
 		'form_lines'	=> array(
-			array('DepreciatoinType', 'DepreciationMethod'),
+			array('DepreciationType', 'DepreciationMethod'),
 			array('DepreciationDef'),
 			array('DepreciationConstraint')
 		)
@@ -656,8 +667,8 @@
 					'type'	=> 'select',
 					'required'	=> true,
 					'module'	=> 'depreciation',
-					'option_text'	=> 'DepreciatoinType',
-					'option_id'	=> 'DepreciatoinType'
+					'option_text'	=> 'DepreciationType',
+					'option_id'	=> 'DepreciationType'
 				),
 				'name'	=> 'Depreciation Type',
 				'slug'	=> 'depreciation-type'
@@ -698,7 +709,7 @@
 					'required'	=> true,
 					'ajax'	=> base_url('index.php/employee/search/'),
 					'ajax_query_id'	=> base_url('index.php/employee/search/?id='),
-					'ajax_text'	=> 'FullName',
+					'ajax_text'	=> 'FirstName',
 					'ajax_id'	=> 'EmployeeID'
 				),
 				'name'	=> 'Reponsible By',
@@ -710,8 +721,8 @@
 					'required'	=> true,
 					'ajax'	=> base_url('index.php/vendor/search/'),
 					'ajax_query_id'	=> base_url('index.php/vendor/search/?id='),
-					'ajax_text'	=> 'FullName',
-					'ajax_id'	=> 'EmployeeID'
+					'ajax_text'	=> 'FirstName',
+					'ajax_id'	=> 'VendorID'
 				),
 				'name'	=> 'Seller',
 				'slug'	=> 'vendor-id'
@@ -787,13 +798,12 @@
 			array(
 				'localField'	=> 'EmployeeID',
 				'module'	=> 'employee',
-				'targetField'	=> 'FullName'
+				'targetField'	=> 'FirstName'
 			),
-			'',
 			array(
 				'localField'	=> 'VendorID',
 				'module'	=> 'vendor',
-				'targetField'	=> 'FullName'
+				'targetField'	=> 'FirstName'
 			),
 			'Manufacturer',
 			'SalvageValue',
